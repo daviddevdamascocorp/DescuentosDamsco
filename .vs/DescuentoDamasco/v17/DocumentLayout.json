@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|solutionrelative:descuentodamasco\\views\\coupon\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\users\\david\\source\\repos\\descuentodamasco\\descuentodamasco\\models\\descuentomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|solutionrelative:descuentodamasco\\models\\descuentomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\users\\david\\source\\repos\\descuentodamasco\\descuentodamasco\\controllers\\couponcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|solutionrelative:descuentodamasco\\controllers\\couponcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -26,11 +30,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
+              "Title": "DescuentoModel.cs",
+              "DocumentMoniker": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Models\\DescuentoModel.cs",
+              "RelativeDocumentMoniker": "DescuentoDamasco\\Models\\DescuentoModel.cs",
+              "ToolTip": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Models\\DescuentoModel.cs",
+              "RelativeToolTip": "DescuentoDamasco\\Models\\DescuentoModel.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAAABwAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-04T15:00:40.487Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "FacturaDataModel.cs",
               "DocumentMoniker": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Models\\FacturaDataModel.cs",
               "RelativeDocumentMoniker": "DescuentoDamasco\\Models\\FacturaDataModel.cs",
@@ -42,7 +59,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\appsettings.json",
               "RelativeDocumentMoniker": "DescuentoDamasco\\appsettings.json",
@@ -54,13 +71,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "CouponController.cs",
               "DocumentMoniker": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Controllers\\CouponController.cs",
               "RelativeDocumentMoniker": "DescuentoDamasco\\Controllers\\CouponController.cs",
               "ToolTip": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Controllers\\CouponController.cs",
               "RelativeToolTip": "DescuentoDamasco\\Controllers\\CouponController.cs",
-              "ViewState": "AQIAAL4AAAAAAAAAAAAAAAwBAAAjAAAA",
+              "ViewState": "AQIAAOoAAAAAAAAAAAAAACkBAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-03T17:32:48.279Z",
               "EditorCaption": ""
@@ -73,7 +90,7 @@
               "RelativeDocumentMoniker": "DescuentoDamasco\\Views\\Coupon\\Index.cshtml",
               "ToolTip": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Views\\Coupon\\Index.cshtml",
               "RelativeToolTip": "DescuentoDamasco\\Views\\Coupon\\Index.cshtml",
-              "ViewState": "AQIAAPYBAAAAAAAAAAAAACAAAAAhAAAA",
+              "ViewState": "AQIAAAYCAAAAAAAAAAAAABwCAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-10-03T15:30:25.589Z",
               "EditorCaption": ""

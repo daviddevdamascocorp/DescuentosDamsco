@@ -30,7 +30,7 @@
             <h3>Cupón de descuento</h3>
         </div>
         <div class="row g-2">
-            <form id="cupon-form">
+            <form id="cupon-form" >
                 <div class="form-group">
                     <label for="SucursalId">Sucursales</label>
                     <select asp-for="SucursalId" id="SucursalDestino" asp-items="Model.Sucursales" class="form-control">
@@ -354,9 +354,21 @@
                 $('#fecha-factura').val('');
             }
         });
-        document.getElementById('cupon-form').addEventListener('submit', ValidateError);
-          function ValidateError(ev) {
-            ev.preventDefault();
+
+        const form = document.getElementById('cupon-form');
+
+       let valForm = form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission  
+
+            ValidateError()
+            // Perform custom validation or other actions here
+            console.log('Form submission prevented.');
+        });
+       //let form = document.getElementById('cupon-form')
+
+         //form.addEventListener('submit', ValidateError, false);
+          function ValidateError() {
+           
             let sucursalInfo = document.getElementById('SucursalDestino').value
             let numFac = document.getElementById('num-fac').value
             let tipoCed = document.getElementById('tipo-doc').value
@@ -508,7 +520,7 @@
                 zonaError.textContent = "Zona"
                 isValid = false;
             }
-            if (facturaError === '') {
+            if (totalFactura === '') {
                 facturaError.textContent = "Valida el total de factura"
                 isValid = false;
             }
@@ -517,5 +529,18 @@
 
 
         }
+        document.getElementById('cupon-form').addEventListener('submit', SubmitText);
+        function SubmitText(event) {
+            //event.preventDefault();
+           console.log(ValidateError())
+            let totalFactura = document.getElementById('total-factura').value
+            if (totalFactura >= 10 && totalFactura <= 500.98) {
+                console.log("5%")
+            } else if (totalFactura >= 501 && totalFactura <= 10000) {
+
+                console.log("10%")
+            }
+        }
+        
     </script>
 </div>

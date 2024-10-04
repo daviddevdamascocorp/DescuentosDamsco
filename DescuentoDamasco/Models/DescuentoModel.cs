@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace DescuentoDamasco.Models
 {
@@ -18,10 +19,14 @@ namespace DescuentoDamasco.Models
         public string AmountTotal { get; set; }
         public string AmountCoupon { get; set; }
         public string PercentageDiscount { get; set; }
+
+        public ClientInfo ClienteInfo { get; set; }
     }
 
     public class ClientInfo {
         public string InvoiceNumber { get; set; }
+
+        public DateTime InvoiceDate { get; set; }
         public string StoreCode { get; set; }
         public string NameClient { get; set; }
         public string SurnameClient { get; set; }
@@ -45,6 +50,20 @@ namespace DescuentoDamasco.Models
         public int codeZone { get; set; }
     }
 
+    public class MessageContent
+    {
+        [JsonProperty("mensaje")]
+        public string Message { get; set; }
+        [JsonProperty("num_dest")]
+        public string ClientNumber { get; set; }
+        [JsonProperty("prior")]
+        public string PriorityNumber { get; set; }
+        [JsonProperty("dep")]
+        public string Department {  get; set; }
+        [JsonProperty("id")]
+        public string IdCampaing { get; set; }
+    }
+  
    /* public class Sucursal
     {
         public List<SelectListItem>? Sucursales { get; set; }

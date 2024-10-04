@@ -1,11 +1,13 @@
 ﻿using DescuentoDamasco.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using SAPbobsCOM;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace DescuentoDamasco.Controllers
@@ -291,8 +293,53 @@ namespace DescuentoDamasco.Controllers
             _connectionDamscoProd.Close();
             return almacen;
         }
+        [HttpPost]
+        public IActionResult InfoClient([FromBody] ClientInfo clientInfo)
+        {
+            var porcentageDiscu = 0;
+            CouponModel couponModel = new CouponModel();
+            if (clientInfo.AmountInvoice >= 10.00m && clientInfo.AmountInvoice <= 500.99m)
+            {
+                couponModel.PercentageDiscount = "5";
+            }
+            else if (clientInfo.AmountInvoice >= 501.00m && clientInfo.AmountInvoice <= 5000.99m)
+            {
+                couponModel.PercentageDiscount = "10";
+            }
+            couponModel.ClienteInfo = clientInfo;
+            couponModel.dateUntilCoupon = clientInfo.InvoiceDate.AddDays(15);
+            var dateGen = DateTime.Now;
 
-       
+            couponModel.CouponId = "DCTO" + dateGen.Minute + dateGen.Second + dateGen.Millisecond;
+            var respMessage = SendMessage(couponModel);
+            return Json(respMessage);
+        }
+       public async Task<IActionResult>  SendMessage( CouponModel couponModel)
+        {
+           MessageContent messageContent = new MessageContent();
+
+            var messageBody = $"Tienes un  {couponModel.PercentageDiscount} porciento de descuento, con este cupón {couponModel.CouponId}, dcto intransferible valido" +
+                $"hasta {couponModel.dateUntilCoupon}";
+            var url = "200.74.198.50:14010/notifismsdamas";
+            messageContent.Message = messageBody;
+            messageContent.ClientNumber = couponModel.ClienteInfo.PhoneNumberClient;
+            messageContent.PriorityNumber = 0;
+            messageContent.Department = "01";
+            messageContent.IdCampaing = "PromoDamasco";
+            string messageReq = JsonConvert.SerializeObject(messageContent);
+            HttpResponseMessage resp = null;
+            using (var httpClient = new HttpClient()) 
+            {
+            
+                var bodyRequest = new StringContent(messageReq, Encoding.UTF8, "application/json");
+                httpClient.DefaultRequestHeaders.Add("X-Auth-Apikey", "57xg$mG8%H4*");
+                resp = await httpClient.PostAsync(url, bodyRequest);
+
+
+            }
+
+            return Json(resp);
+        }
 
     }
 }

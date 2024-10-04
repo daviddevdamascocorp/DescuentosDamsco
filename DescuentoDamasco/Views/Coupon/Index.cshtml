@@ -356,7 +356,56 @@
         });
 
         const form = document.getElementById('cupon-form');
+        document.getElementById('cupon-form').addEventListener('submit', SubmitText);
+        function SubmitText(event) {
+            //event.preventDefault();
+            console.log(ValidateError())
 
+            let valForm = ValidateError()
+            let sucursalInfo = document.getElementById('SucursalDestino').value
+            let numFac = document.getElementById('num-fac').value
+            let tipoCed = document.getElementById('tipo-doc').value
+            let cedula = document.getElementById('num-doc').value
+            let nombre = document.getElementById('Nombre').value
+            let apellido = document.getElementById('Apellido').value
+            let tipoNumCel = document.getElementById('cod-telf').value
+            let numCel = document.getElementById('num-telf').value
+            let fechaNac = document.getElementById('fecha-nac').value
+            let fechaFactura = document.getElementById('fecha-factura').value
+            let estadoCivil = document.getElementById('estado-civil').value
+            let generoCliente = document.getElementById('genero-cliente').value
+            let emailInfo = document.getElementById('Correo').value
+            let country = $('#country').val().trim()
+            let state = $('#estado-emision').val().trim()
+            let municip = $('#municipio-emision').val().trim()
+            let ciudad = $('#ciudad-emision').val().trim()
+            let zona = $('#Zona-emision').val().trim()
+            let totalFactura = document.getElementById('total-factura').value
+            if (valForm === true) {
+                let dataDireccion = {
+                    paisCliente: country,
+                    estadoCliente: state,
+                    ciudadCliente: ciudad,
+                    municipioCliente: municip,
+                    zonaCliente: zona
+
+                }
+                let dataFactura = {
+                    numeroFactura :numFac,
+                    fechaFactura : fechaFactura,
+                    codTienda : sucursalInfo,
+                    nombreCliente : nombre,
+                    apellidoCliente :apellido,
+                    correoCliente : emailInfo,
+                    telefonoCliente : tipoNumCel + numCel,
+                    montoFacturaCliente : totalFactura,
+                    direcionCliente : dataDireccion
+                }
+
+                console.log(dataFactura)
+                
+            }
+        }
        let valForm = form.addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent form submission  
 
@@ -364,9 +413,7 @@
             // Perform custom validation or other actions here
             console.log('Form submission prevented.');
         });
-       //let form = document.getElementById('cupon-form')
-
-         //form.addEventListener('submit', ValidateError, false);
+       
           function ValidateError() {
            
             let sucursalInfo = document.getElementById('SucursalDestino').value
@@ -529,18 +576,7 @@
 
 
         }
-        document.getElementById('cupon-form').addEventListener('submit', SubmitText);
-        function SubmitText(event) {
-            //event.preventDefault();
-           console.log(ValidateError())
-            let totalFactura = document.getElementById('total-factura').value
-            if (totalFactura >= 10 && totalFactura <= 500.98) {
-                console.log("5%")
-            } else if (totalFactura >= 501 && totalFactura <= 10000) {
-
-                console.log("10%")
-            }
-        }
+        
         
     </script>
 </div>

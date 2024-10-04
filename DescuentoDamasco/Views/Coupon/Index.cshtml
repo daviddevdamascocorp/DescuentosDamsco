@@ -1,0 +1,521 @@
+﻿@*
+    
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_LayoutCupon.cshtml";
+    @model DescuentoDamasco.Models.DescuentoModel
+   
+}
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<div class="form-client">
+
+    <div class="container-fluid">
+        <style>
+            .error-message {
+                color: red;
+                font-size: 14px;
+                margin-top: 5px;
+            }
+        </style>
+        <div class="logos col mt-3">
+            <div class="brand-image">
+                <img src="~/img/logodamascorojo.png" alt="Damasco Rojo Logo">
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <h3>Cupón de descuento</h3>
+        </div>
+        <div class="row g-2">
+            <form id="cupon-form">
+                <div class="form-group">
+                    <label for="SucursalId">Sucursales</label>
+                    <select asp-for="SucursalId" id="SucursalDestino" asp-items="Model.Sucursales" class="form-control">
+                        <option value="">Seleccione una sucursal</option>
+                    </select>
+                    <span id="sucursal-error" class="error-message"></span>
+                </div>
+                <div class="col form-group">
+                    <label for="">Número de factura</label>
+                    <input type="text" id="num-fac" placeholder="Número de factura" class="form-control">
+                    <span id="num-fac-error" class="error-message"></span>
+                </div>
+                <div class="col form-group">
+                    <label for="">Fecha de Factura</label>
+                    <input type="date" name="fecha-factura" id="fecha-factura" class="form-control">
+
+                </div>
+                <div class="row">
+                    <div class="col form-group">
+
+                        <div class="row">
+                            <label for="">Documento de identidad</label>
+                            <div class="col form-group">
+
+                                <select name="" class="form-select" id="tipo-doc">
+                                    <option value="">Elige</option>
+                                    <option value="V">V</option>
+                                    <option value="E">J</option>
+                                </select>
+                                <span id="tipo-ced-error" class="error-message"></span>
+                            </div>
+                            <div class="col form-group">
+
+                                <input type="text" placeholder="Número de cedula" id="num-doc" class="form-control">
+                                <span id="num-doc-error" class="error-message"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Nombre </label>
+                        <input type="text" id="Nombre" placeholder="Nombre" class="form-control">
+                        <span id="nombre-error" class="error-message"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Apellido</label>
+                        <input type="text" id="Apellido" placeholder="Apellido" class="form-control">
+                        <span id="apellido-error" class="error-message"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Fecha de nacimiento</label>
+                        <input type="date" name="fecha-nac" id="fecha-nac" class="form-control">
+                        <span id="fecha-nac-error" class="error-message"></span>
+                    </div>
+
+                </div>
+                <div class="row g-2">
+                    <div class="col">
+                        <label for="est-cil">
+                            Estado Civil
+                        </label>
+                        <select name="estado" class="form-select" id="estado-civil">
+                            <option value="">Elige</option>
+                            <option value="S">Soltero</option>
+                            <option value="C">Casado</option>
+                            <option value="D">Divorciado</option>
+                            <option value="V">Viudo</option>
+                        </select>
+                        <span id="estado-civil-error" class="error-message"></span>
+                    </div>
+                    <div class="col">
+                        <label for="genero-cliente">Sexo</label>
+                        <select name="genero" class="form-select" id="genero-cliente">
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                        </select>
+                        <span id="genero-cliente-error" class="error-message"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Correo electronico</label>
+                    <input type="text" id="Correo" name="Correo" placeholder="Correo electrónico" class="form-control">
+                    <span id="correo-error" class="error-message"></span>
+                </div>
+                <div class="row g-2">
+                    <div class="col form-group">
+                        <label for="">
+                            Número de teléfono
+                        </label>
+                        <select name="" class="form-select" id="cod-telf">
+                            <option value="">Elige</option>
+                            <option value="0412">0412</option>
+                            <option value="0414">0414</option>
+                            <option value="0424">0424</option>
+                            <option value="0416">0416</option>
+                            <option value="0426">0426</option>
+                        </select>
+                        <span id="cod-telf-error" class="error-message"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label for=""></label>
+                        <input type="text" id="num-telf" placeholder="Número de teléfono" class="form-control">
+                        <span id="num-telf-error" class="error-message"></span>
+                    </div>
+                </div>
+
+                <div class="row g-5">
+                    <div class="col form-group">
+                        <label for="">País de emisión</label>
+                        <select name="" class="form-select" id="country" onchange="getState()">
+                            <option value="">Elige</option>
+                            <option value="1">Venezuela</option>
+                        </select>
+                        <span id="country-error" class="error-message"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Estado</label>
+                        <select name="" class="form-select estado-emision" id="estado-emision" onchange="getMunicipality()">
+                        </select>
+                        <span id="estado-error" class="error-message"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Municipio</label>
+                        <select name="" class="form-select municipio-emision" id="municipio-emision" onchange="getCity()">
+                        </select>
+                        <span id="municipio-error" class="error-message"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Ciudad</label>
+                        <select name="" class="form-select ciudad-emision" id="ciudad-emision" onchange="getZones()">
+                        </select>
+                        <span id="ciudad-error" class="error-message"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Zona</label>
+                        <select name="" class="form-select zona-emision" id="Zona-emision">
+                        </select>
+                        <span id="zona-error" class="error-message"></span>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="total-factura">Total de Factura</label>
+                    <input type="text" id="total-factura" name="totalFactura" class="form-control" placeholder="Total de Factura" readonly>
+                    <span id="total-facturar-error" class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <label for="total-descuento">Total de Descuento</label>
+                    <input type="text" id="total-descuento" name="totalFactura" class="form-control" placeholder="Total de Descuento" readonly>
+
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary" id="confirm-btn">Crear Cupón</button>
+
+                </div>
+
+
+                </form>
+        </div>
+    </div>
+    <script>
+        async function getState() {
+            let countryVal = document.getElementById('country').value;
+            try {
+                const response = await fetch(`/Coupon/GetStates?cntry=${countryVal}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    const estados = data.prov.map(item => ({
+                        id: item.provinceId,
+                        text: item.provinceName
+                    }));
+
+                    estados.unshift({ id: '', text: 'Seleccione un Estado' });
+                    $("#estado-emision").select2({ data: estados });
+                } else {
+                    throw new Error('Error al obtener los estados');
+                }
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+        // Función para obtener los municipios
+        async function getMunicipality() {
+            let stateVal = document.getElementById('estado-emision').value;
+            try {
+                const response = await fetch(`/Coupon/GetMunicipio?state=${stateVal}`);
+                if (response.ok) {
+                    const dataMun = await response.json();
+                    const muns = dataMun.mun.map(items => ({
+                        id: items.munucipId,
+                        text: items.munucipName
+                    }));
+
+                    muns.unshift({ id: '', text: 'Seleccione un Municipio' });
+                    $(".municipio-emision").empty().select2({ data: muns });
+                } else {
+                    throw new Error('Error al obtener los municipios');
+                }
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        // Función para obtener las ciudades
+        async function getCity() {
+            let stateVal = document.getElementById('estado-emision').value;
+            try {
+                const response = await fetch(`/Coupon/GetCities?state=${stateVal}`);
+                if (response.ok) {
+                    const dataCity = await response.json();
+                    const city = dataCity.city.map(items => ({
+                        id: items.cityId,
+                        text: items.cityName
+                    }));
+
+                    city.unshift({ id: '', text: 'Seleccione una ciudad' });
+                    $(".ciudad-emision").empty().select2({
+                        data: city,
+                        placeholder: "Seleccione una ciudad",
+                        allowClear: true
+                    });
+                } else {
+                    throw new Error('Error al obtener las ciudades');
+                }
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        // Función para obtener las zonas
+        async function getZones() {
+            let stateVal = document.getElementById('estado-emision').value;
+            let muniVal = document.getElementById('municipio-emision').value;
+            try {
+                const response = await fetch(`/Coupon/GetZone?state=${stateVal}&mun=${muniVal}`);
+                if (response.ok) {
+                    const dataZone = await response.json();
+                    const zone = dataZone.zoneList.map(items => ({
+                        id: items.zoneId,
+                        text: items.zoneName
+                    }));
+                    $(".zona-emision").empty().select2({ data: zone });
+                } else {
+                    throw new Error('Error al obtener las zonas');
+                }
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        // Evento para cuando se cambia la sucursal o el número de factura
+        $(document).ready(function () {
+            $('#SucursalDestino, #num-fac').on('change', function () {
+                var sucursal = $('#SucursalDestino').val();
+                var numFactura = $('#num-fac').val();
+
+                limpiarCampos();
+
+                if (sucursal && numFactura) {
+                    $.ajax({
+                        url: '/Coupon/ObtenerDatos',
+                        type: 'GET',
+                        data: {
+                            sucursal: sucursal,
+                            numFactura: numFactura
+                        },
+                        success: function (data) {
+                            console.log('Datos recibidos:', data);
+
+
+
+                            if (data.length > 0) {
+                                // Rellenar los campos
+                                $('#fecha-factura').val(data[0].fechaFactura.split('T')[0]);
+
+                                var cliente = data[0];
+                                var codCliente = cliente.codCliente;
+                                $('#tipo-doc').val(codCliente.charAt(0));
+                                $('#num-doc').val(codCliente.substring(2));
+
+                                var nombreArray = cliente.nomCliente.split(' ');
+                                $('#Nombre').val(nombreArray[0]);
+                                $('#Apellido').val(nombreArray[1] || '');
+
+                                // Calcular el total de la factura
+                                let tot_factura = 0;
+                                data.forEach(function (item) {
+                                    tot_factura += item.precioUSD;
+                                });
+                                $('#total-factura').val(tot_factura.toFixed(2));
+                            } else {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'No hay productos disponibles',
+                                    text: 'No se encontraron productos para esta factura.',
+                                });
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error al obtener datos',
+                                text: 'Hubo un problema al cargar los productos. Inténtalo de nuevo más tarde.',
+                            });
+                            console.error('Error al obtener datos:', status, error);
+                        }
+                    });
+                }
+            });
+
+            // Función para limpiar los campos del formulario
+            function limpiarCampos() {
+                $('#serialesDropdown').val('');
+                $('#manualEntry').val('').prop('disabled', true);
+                $('#totalPoliza').val('');
+                $('#tipo-doc').val('');
+                $('#num-doc').val('');
+                $('#Nombre').val('');
+                $('#Apellido').val('');
+                $('#fecha-factura').val('');
+            }
+        });
+        document.getElementById('cupon-form').addEventListener('submit', ValidateError);
+          function ValidateError(ev) {
+            ev.preventDefault();
+            let sucursalInfo = document.getElementById('SucursalDestino').value
+            let numFac = document.getElementById('num-fac').value
+            let tipoCed = document.getElementById('tipo-doc').value
+            let cedula = document.getElementById('num-doc').value
+            let nombre = document.getElementById('Nombre').value
+            let apellido = document.getElementById('Apellido').value
+            let tipoNumCel = document.getElementById('cod-telf').value
+            let numCel = document.getElementById('num-telf').value
+            let fechaNac = document.getElementById('fecha-nac').value
+            let estadoCivil = document.getElementById('estado-civil').value
+            let generoCliente = document.getElementById('genero-cliente').value
+            let emailInfo = document.getElementById('Correo').value
+            let country = $('#country').val()
+            let state = $('#estado-emision').val()
+            let municip = $('#municipio-emision').val()
+            let ciudad = $('#ciudad-emision').val()
+            let zona = $('#Zona-emision').val()
+            let totalFactura = document.getElementById('total-factura').value
+            const sucursalError = document.getElementById(
+                "sucursal-error"
+            );
+            const numFacError = document.getElementById(
+                "num-fac-error"
+            );
+           
+            const tipoCedError = document.getElementById(
+                "tipo-ced-error"
+            );
+
+            const numCedError = document.getElementById(
+                "num-doc-error"
+            );
+            const nombreError = document.getElementById(
+                "nombre-error"
+            )
+            const apellidoError = document.getElementById(
+                "apellido-error"
+            )
+            
+            const tipoNumTelfError = document.getElementById('cod-telf-error')
+            const NumTelfError = document.getElementById('num-telf-error')
+            const fechaNacError = document.getElementById('fecha-nac-error')
+            const estadoCivilError = document.getElementById('estado-civil-error')
+            const generoClienteError = document.getElementById('genero-cliente-error')
+            const correoError = document.getElementById('correo-error')
+            const paisError = document.getElementById('country-error')
+            const estadoError = document.getElementById('estado-error')
+            const ciudadError = document.getElementById('ciudad-error')
+            const municipioError = document.getElementById('municipio-error')
+            const zonaError = document.getElementById('zona-error')
+            const facturaError = document.getElementById('total-facturar-error')
+            //texto en blanco
+            sucursalError.textContent = ''
+            numFacError.textContent = ''
+     
+            tipoCedError.textContent = ''
+            numCedError.textContent = ''
+            nombreError.textContent = ''
+            apellidoError.textContent = ''
+            tipoNumTelfError.textContent = ''
+            NumTelfError.textContent = ''
+            fechaNacError.textContent = ''
+            estadoCivilError.textContent = ''
+            generoClienteError.textContent = ''
+            correoError.textContent = ''
+            paisError.textContent = ''
+            estadoError.textContent = ''
+            municipioError.textContent = ''
+            zonaError.textContent = ''
+            facturaError.textContent = ''
+            let isValid = true
+            if (sucursalInfo === '') {
+                sucursalError.textContent = 'Elige una sucursal'
+                isValid = false;
+            }
+            if (numFac === '') {
+                numFacError.textContent = "Ingresa el numero de factura"
+                isValid = false;
+
+            }
+
+
+            if (tipoCed == '') {
+                tipoCedError.textContent = "Documento"
+                isValid = false;
+            }
+
+            if (cedula == '') {
+                numCedError.textContent = "Número Doc"
+                isValid = false;
+            }
+
+            if (nombre == '') {
+                nombreError.textContent = "Nombre"
+                isValid = false;
+            }
+            if (apellido === '') {
+                apellidoError.textContent = "Apellido"
+                isValid = false;
+            }
+
+            if (tipoNumCel == '') {
+                tipoNumTelfError.textContent = "Elige"
+                isValid = false;
+            }
+            if (numCel === '') {
+                NumTelfError.textContent = "Número teléfono"
+                isValid = false;
+            }
+            if (fechaNac === '') {
+                fechaNacError.textContent = 'Nacimiento'
+                isValid = false;
+            }
+            if (estadoCivil === '') {
+                estadoCivilError.textContent = 'Elige estado'
+                isValid = false;
+
+            }
+            if (generoCliente === '') {
+                generoClienteError.textContent = 'Elige'
+                isValid = false;
+            }
+
+            if (emailInfo === '') {
+                correoError.textContent = "Ingresa el correo"
+                isValid = false;
+            }
+
+            if (country === '') {
+                paisError.textContent = "País"
+                isValid = false;
+            }
+
+            if (state === '') {
+                estadoError.textContent = "Estado"
+                isValid = false;
+            }
+
+            if (municip === '') {
+                municipioError.textContent = "Municipio"
+                isValid = false;
+            }
+
+            if (ciudad === '') {
+                ciudadError.textContent = "Ciudad"
+                isValid = false;
+            }
+            if (zona === '') {
+                zonaError.textContent = "Zona"
+                isValid = false;
+            }
+            if (facturaError === '') {
+                facturaError.textContent = "Valida el total de factura"
+                isValid = false;
+            }
+
+            return isValid
+
+
+        }
+    </script>
+</div>

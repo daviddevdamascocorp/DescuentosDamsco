@@ -312,14 +312,18 @@ namespace DescuentoDamasco.Controllers
 
             couponModel.CouponId = "DCTO" + dateGen.Minute + dateGen.Second + dateGen.Millisecond;
             var respMessage = SendMessage(couponModel);
-            return Json(respMessage);
+            Console.WriteLine(respMessage);
+
+            return Json(new { success = true}); ;
         }
-       public async Task<IActionResult>  SendMessage( CouponModel couponModel)
+       public async Task  SendMessage( CouponModel couponModel)
         {
            MessageContent messageContent = new MessageContent();
-
+            DateTime dates = couponModel.dateUntilCoupon;
+            var CouponDateFormatted = dates.ToString("dd/MM/yyyy");
+            var result = "";
             var messageBody = $"Tienes un {couponModel.PercentageDiscount}% de descuento, con este cupón {couponModel.CouponId}, dcto intransferible valido" +
-                $" hasta {couponModel.dateUntilCoupon}";
+                $" hasta el {CouponDateFormatted}";
             var url = "http://200.74.198.50:14010/notifismsdamas";
             messageContent.Message = messageBody;
             messageContent.ClientNumber = couponModel.ClienteInfo.PhoneNumberClient;
@@ -334,11 +338,11 @@ namespace DescuentoDamasco.Controllers
                 var bodyRequest = new StringContent(messageReq, Encoding.UTF8, "application/json");
                 httpClient.DefaultRequestHeaders.Add("X-Auth-Apikey", "57xg$mG8%H4*");
                 resp = await httpClient.PostAsync(url, bodyRequest);
-
-
+                resp.EnsureSuccessStatusCode();
+              
             }
 
-            return Json(resp.Content);
+           
         }
 
     }

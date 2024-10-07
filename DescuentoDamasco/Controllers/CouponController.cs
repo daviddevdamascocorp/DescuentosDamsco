@@ -318,9 +318,9 @@ namespace DescuentoDamasco.Controllers
         {
            MessageContent messageContent = new MessageContent();
 
-            var messageBody = $"Tienes un  {couponModel.PercentageDiscount} porciento de descuento, con este cupón {couponModel.CouponId}, dcto intransferible valido" +
-                $"hasta {couponModel.dateUntilCoupon}";
-            var url = "200.74.198.50:14010/notifismsdamas";
+            var messageBody = $"Tienes un {couponModel.PercentageDiscount}% de descuento, con este cupón {couponModel.CouponId}, dcto intransferible valido" +
+                $" hasta {couponModel.dateUntilCoupon}";
+            var url = "http://200.74.198.50:14010/notifismsdamas";
             messageContent.Message = messageBody;
             messageContent.ClientNumber = couponModel.ClienteInfo.PhoneNumberClient;
             messageContent.PriorityNumber = 0;

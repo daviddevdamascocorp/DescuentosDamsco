@@ -18,6 +18,9 @@ namespace DescuentoDamasco.Controllers
         private SqlConnection _connection;
         private SqlConnection _connectionDamscoProd;
         private SqlConnection _connectionKlkPos;
+        private SqlConnection _connectionDescuento;
+        private bool isSuccess;
+        private string message;
 
         public IConfiguration _configuration {  get; set; }
 
@@ -45,6 +48,16 @@ namespace DescuentoDamasco.Controllers
             _connectionKlkPos = new SqlConnection(connectionKlkPos);
 
         }
+
+
+        public void Descuento()
+        {
+            string connectionDescuento = _configuration["ConnectionStrings:SQLConnection4"];
+            _connectionDescuento = new SqlConnection(connectionDescuento);
+
+        }
+
+
         public IActionResult Index()
         {
             var sucursales = ObtenerSucursales();
@@ -239,13 +252,13 @@ namespace DescuentoDamasco.Controllers
                         SELECT li.NumFactura, fa.FechaFactura, fa.CodCliente, fa.NomCliente, li.CodArticulo,li.Serial,li.Descripcion,ROUND(li.PrecioUSD, 2) AS PrecioUSD, li.CodigoAlmacen
                     FROM KLK_FACTURALINE li
                     INNER JOIN KLK_FACTURAHDR fa ON li.NumFactura = fa.NumFactura
-                    WHERE fa.NumFactura = @numFactura AND li.CodigoAlmacen = @Almacen";
+                    WHERE fa.NumFactura = @numFactura AND fa.IDSucursal = @Almacen";
 
             var result = new List<FacturaDataModel>();
             SqlCommand sqlCommand = new SqlCommand(query,_connectionKlkPos);
             SqlDataAdapter adapter = new SqlDataAdapter(sqlCommand);
             sqlCommand.Parameters.AddWithValue("@numFactura", numFactura);
-            sqlCommand.Parameters.AddWithValue("@Almacen", Almacen);
+            sqlCommand.Parameters.AddWithValue("@Almacen", primerosDosDigitos);
             
             _connectionKlkPos.Open();
             SqlDataReader reader = sqlCommand.ExecuteReader();
@@ -293,6 +306,7 @@ namespace DescuentoDamasco.Controllers
             _connectionDamscoProd.Close();
             return almacen;
         }
+
         [HttpPost]
         public IActionResult InfoClient([FromBody] ClientInfo clientInfo)
         {
@@ -301,17 +315,23 @@ namespace DescuentoDamasco.Controllers
             if (clientInfo.AmountInvoice >= 10.00m && clientInfo.AmountInvoice <= 500.99m)
             {
                 couponModel.PercentageDiscount = "5";
+                couponModel.AmountDiscount = clientInfo.AmountInvoice * 0.05m;
             }
-            else if (clientInfo.AmountInvoice >= 501.00m && clientInfo.AmountInvoice <= 5000.99m)
+            else if (clientInfo.AmountInvoice >= 501.00m)
             {
                 couponModel.PercentageDiscount = "10";
+                couponModel.AmountDiscount = clientInfo.AmountInvoice * 0.10m;
             }
             couponModel.ClienteInfo = clientInfo;
             couponModel.dateUntilCoupon = clientInfo.InvoiceDate.AddDays(15);
             var dateGen = DateTime.Now;
 
             couponModel.CouponId = "DCTO" + dateGen.Minute + dateGen.Second + dateGen.Millisecond;
+
+
+
             var respMessage = SendMessage(couponModel);
+            SaveDataPolicy(couponModel);
             Console.WriteLine(respMessage);
 
             return Json(new { success = true}); ;
@@ -322,7 +342,7 @@ namespace DescuentoDamasco.Controllers
             DateTime dates = couponModel.dateUntilCoupon;
             var CouponDateFormatted = dates.ToString("dd/MM/yyyy");
             var result = "";
-            var messageBody = $"Tienes un {couponModel.PercentageDiscount}% de descuento, con este cupón {couponModel.CouponId}, dcto intransferible valido" +
+            var messageBody = $"Tienes un  saldo a tu favor de {couponModel.AmountDiscount:n}, con este cupón {couponModel.CouponId}, dcto intransferible valido" +
                 $" hasta el {CouponDateFormatted}";
             var url = "http://200.74.198.50:14010/notifismsdamas";
             messageContent.Message = messageBody;
@@ -344,6 +364,53 @@ namespace DescuentoDamasco.Controllers
 
            
         }
+
+
+        private void SaveDataPolicy(CouponModel couponModel)
+        {
+            Descuento();
+
+            try
+            {
+                // Abrir la conexión
+                _connectionDescuento.Open();
+
+                using (SqlCommand sqlCommand = new SqlCommand(@"INSERT INTO InfoDescuento 
+                ([Cedula_Cliente], [Nombre_Cliente], [nro.Cupon], [Fecha_Emision], [Fecha_Vencimiento], [Correo], [Telefono]) 
+                VALUES (@cedula, @Nombre, @Cupon, @fecha_Emision, @fecha_vencimiento, @Correo, @Telefono)",
+                        _connectionDescuento))
+                {
+                    // Asignar parámetros
+                    sqlCommand.Parameters.AddWithValue("@cedula", couponModel.ClienteInfo.Cedula );
+                    sqlCommand.Parameters.AddWithValue("@Nombre", couponModel.ClienteInfo.NameClient );
+                    sqlCommand.Parameters.AddWithValue("@Cupon", couponModel.CouponId );
+                    sqlCommand.Parameters.AddWithValue("@fecha_Emision", couponModel.ClienteInfo.InvoiceDate);
+                    sqlCommand.Parameters.AddWithValue("@fecha_vencimiento", couponModel.dateUntilCoupon);
+                    sqlCommand.Parameters.AddWithValue("@Correo", couponModel.ClienteInfo.EmailClient );
+                    sqlCommand.Parameters.AddWithValue("@Telefono", couponModel.ClienteInfo.PhoneNumberClient );
+
+                    // Ejecutar la consulta
+                    sqlCommand.ExecuteNonQuery();
+                    isSuccess = true;
+                    message = "Ingreso guardado exitosamente.";
+                }
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+                message = "Error al guardar en la base de datos: " + ex.Message;
+            }
+            finally
+            {
+              
+                if (_connectionDescuento.State == System.Data.ConnectionState.Open)
+                {
+                    _connectionDescuento.Close();
+                }
+            }
+        }
+
+        
 
     }
 }

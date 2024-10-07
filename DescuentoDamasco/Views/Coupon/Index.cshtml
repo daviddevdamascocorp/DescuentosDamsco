@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center">
-            <h3>Cupón de descuento</h3>
+            <h3>Generar Cupón de descuento</h3>
         </div>
         <div class="row g-2">
             <form id="cupon-form" >
@@ -184,7 +184,7 @@
                 </div>
 
                 <div class="mt-4">
-                    <button type="submit" class="btn btn-primary" id="confirm-btn">Crear Cupón</button>
+                    <button type="submit" class="btn btn-primary" id="confirm-btn">Generar Cupón</button>
 
                 </div>
 
@@ -318,10 +318,17 @@
 
                                 // Calcular el total de la factura
                                 let tot_factura = 0;
+                                let montoDescuento = 0;
                                 data.forEach(function (item) {
                                     tot_factura += item.precioUSD;
                                 });
+                                if (tot_factura >= 10.00 && tot_factura <= 500.99) {
+                                    montoDescuento = tot_factura * 0.05
+                                } else if (tot_factura >= 501.00) {
+                                    montoDescuento = tot_factura * 0.10
+                                }
                                 $('#total-factura').val(tot_factura.toFixed(2));
+                                $('#total-descuento').val(montoDescuento.toFixed(2));
                             } else {
                                 Swal.fire({
                                     icon: 'warning',
@@ -365,7 +372,7 @@
             let sucursalInfo = document.getElementById('SucursalDestino').value
             let numFac = document.getElementById('num-fac').value
             let tipoCed = document.getElementById('tipo-doc').value
-            let cedula = document.getElementById('num-doc').value
+            let Cedula = document.getElementById('num-doc').value
             let nombre = document.getElementById('Nombre').value
             let apellido = document.getElementById('Apellido').value
             let tipoNumCel = document.getElementById('cod-telf').value
@@ -381,6 +388,13 @@
             let ciudad = $('#ciudad-emision').val().trim()
             let zona = $('#Zona-emision').val().trim()
             let totalFactura = document.getElementById('total-factura').value
+            let montoDescuento = ''
+            if (totalFactura >= 10.00 && totalFactura <= 500.99) {
+                montoDescuento = totalFactura * 0.05
+            } else if (totalFactura >= 501.00) {
+                montoDescuento = totalFactura * 0.10
+            }
+            
             if (valForm === true) {
                 let dataDireccion = {
                     codeContry: country,
@@ -393,6 +407,8 @@
                 let dataFactura = {
                     InvoiceNumber: numFac,
                     InvoiceDate: fechaFactura,
+                    Cedula: Cedula,
+                    AmountDiscount: montoDescuento,
                     StoreCode: sucursalInfo,
                     NameClient: nombre,
                     SurnameClient: apellido,
@@ -402,7 +418,7 @@
                     AddressClient: dataDireccion
                 }
 
-                //console.log(dataFactura)
+                console.log(dataFactura)
                 SendMessageCoupon(dataFactura)
                 
             }

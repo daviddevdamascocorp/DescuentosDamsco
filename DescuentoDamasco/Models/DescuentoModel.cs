@@ -8,7 +8,7 @@ namespace DescuentoDamasco.Models
     {
         public List<SelectListItem>? Sucursales { get; set; }
         public string SucursalId { get; set; }
-        
+
 
     }
     public class CouponModel
@@ -16,6 +16,8 @@ namespace DescuentoDamasco.Models
         public string CouponId { get; set; }
 
         public string PercentageDiscount { get; set; }
+
+        public Decimal AmountDiscount { get; set; }
         public DateTime dateUntilCoupon { get; set; }
         public ClientInfo ClienteInfo { get; set; }
     }
@@ -24,6 +26,9 @@ namespace DescuentoDamasco.Models
         [JsonProperty("numeroFactura")]
         public string InvoiceNumber { get; set; }
         [JsonProperty("fechaFactura")]
+
+        public string Cedula { get; set; }
+        [JsonProperty("Cedula")]
         public DateTime InvoiceDate { get; set; }
         [JsonProperty("codTienda")]
         public string StoreCode { get; set; }
@@ -67,9 +72,21 @@ namespace DescuentoDamasco.Models
         [JsonProperty("prior")]
         public int PriorityNumber { get; set; }
         [JsonProperty("dep")]
-        public string Department {  get; set; }
+        public string Department { get; set; }
         [JsonProperty("id")]
         public string IdCampaing { get; set; }
+    }
+
+    public class CheckCouponModel
+    {
+        public int Store { get; set; }
+        public string CouponCode { get; set; }
+
+    }
+
+    public class CouponResultCheck {
+        public string CouponCode { get; set; }
+        public bool Status { get; set; }
     }
   
    /* public class Sucursal

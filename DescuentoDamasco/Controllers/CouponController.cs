@@ -356,7 +356,7 @@ namespace DescuentoDamasco.Controllers
 
             }
 
-            return Json(resp);
+            return Json(resp.Content);
         }
 
 

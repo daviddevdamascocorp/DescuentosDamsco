@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DescuentoDamasco")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bfc7749ba166db7d3cf68301fb6af284ae82a14c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1864de4c43f73a4d1732fd09522b69bf7c2b1e80")]
 [assembly: System.Reflection.AssemblyProductAttribute("DescuentoDamasco")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DescuentoDamasco")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

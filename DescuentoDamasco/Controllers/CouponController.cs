@@ -18,6 +18,9 @@ namespace DescuentoDamasco.Controllers
         private SqlConnection _connection;
         private SqlConnection _connectionDamscoProd;
         private SqlConnection _connectionKlkPos;
+        private SqlConnection _connectionDescuento;
+        private bool isSuccess;
+        private string message;
 
         public IConfiguration _configuration {  get; set; }
 
@@ -45,6 +48,16 @@ namespace DescuentoDamasco.Controllers
             _connectionKlkPos = new SqlConnection(connectionKlkPos);
 
         }
+
+
+        public void Descuento()
+        {
+            string connectionDescuento = _configuration["ConnectionStrings:SQLConnection4"];
+            _connectionDescuento = new SqlConnection(connectionDescuento);
+
+        }
+
+
         public IActionResult Index()
         {
             var sucursales = ObtenerSucursales();
@@ -293,6 +306,7 @@ namespace DescuentoDamasco.Controllers
             _connectionDamscoProd.Close();
             return almacen;
         }
+
         [HttpPost]
         public IActionResult InfoClient([FromBody] ClientInfo clientInfo)
         {
@@ -311,7 +325,11 @@ namespace DescuentoDamasco.Controllers
             var dateGen = DateTime.Now;
 
             couponModel.CouponId = "DCTO" + dateGen.Minute + dateGen.Second + dateGen.Millisecond;
+
+
+
             var respMessage = SendMessage(couponModel);
+            SaveDataPolicy(couponModel);
             return Json(respMessage);
         }
        public async Task<IActionResult>  SendMessage( CouponModel couponModel)
@@ -339,6 +357,51 @@ namespace DescuentoDamasco.Controllers
             }
 
             return Json(resp);
+        }
+
+
+        private void SaveDataPolicy(CouponModel couponModel)
+        {
+            Descuento();
+
+            try
+            {
+                // Abrir la conexión
+                _connectionDescuento.Open();
+
+                using (SqlCommand sqlCommand = new SqlCommand(@"INSERT INTO Poliza 
+                ([Cedula_Cliente], [Nombre_Cliente], [nro.Cupon], [Fecha_Emision], [Fecha_Vencimiento], [Correo], [Telefono]) 
+                VALUES (@cedula, @Nombre, @Cupon, @fecha_Emision, @fecha_vencimiento, @Correo, @Telefono)",
+                        _connectionDescuento))
+                {
+                    // Asignar parámetros
+                    sqlCommand.Parameters.AddWithValue("@cedula", couponModel.ClienteInfo.Cedula );
+                    sqlCommand.Parameters.AddWithValue("@Nombre", couponModel.ClienteInfo.NameClient );
+                    sqlCommand.Parameters.AddWithValue("@Cupon", couponModel.CouponId );
+                    sqlCommand.Parameters.AddWithValue("@fecha_Emision", couponModel.ClienteInfo.InvoiceDate);
+                    sqlCommand.Parameters.AddWithValue("@fecha_vencimiento", couponModel.dateUntilCoupon);
+                    sqlCommand.Parameters.AddWithValue("@Correo", couponModel.ClienteInfo.EmailClient );
+                    sqlCommand.Parameters.AddWithValue("@Telefono", couponModel.ClienteInfo.PhoneNumberClient );
+
+                    // Ejecutar la consulta
+                    sqlCommand.ExecuteNonQuery();
+                    isSuccess = true;
+                    message = "Ingreso guardado exitosamente.";
+                }
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+                message = "Error al guardar en la base de datos: " + ex.Message;
+            }
+            finally
+            {
+              
+                if (_connectionDescuento.State == System.Data.ConnectionState.Open)
+                {
+                    _connectionDescuento.Close();
+                }
+            }
         }
 
     }

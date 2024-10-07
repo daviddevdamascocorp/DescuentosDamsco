@@ -365,7 +365,7 @@
             let sucursalInfo = document.getElementById('SucursalDestino').value
             let numFac = document.getElementById('num-fac').value
             let tipoCed = document.getElementById('tipo-doc').value
-            let cedula = document.getElementById('num-doc').value
+            let Cedula = document.getElementById('num-doc').value
             let nombre = document.getElementById('Nombre').value
             let apellido = document.getElementById('Apellido').value
             let tipoNumCel = document.getElementById('cod-telf').value
@@ -393,6 +393,7 @@
                 let dataFactura = {
                     InvoiceNumber: numFac,
                     InvoiceDate: fechaFactura,
+                    Cedula: Cedula,
                     StoreCode: sucursalInfo,
                     NameClient: nombre,
                     SurnameClient: apellido,

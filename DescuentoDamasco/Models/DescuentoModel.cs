@@ -24,6 +24,9 @@ namespace DescuentoDamasco.Models
         [JsonProperty("numeroFactura")]
         public string InvoiceNumber { get; set; }
         [JsonProperty("fechaFactura")]
+
+        public string Cedula { get; set; }
+        [JsonProperty("Cedula")]
         public DateTime InvoiceDate { get; set; }
         [JsonProperty("codTienda")]
         public string StoreCode { get; set; }

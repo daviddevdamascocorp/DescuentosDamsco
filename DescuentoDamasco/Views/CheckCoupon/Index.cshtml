@@ -1,0 +1,150 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_LayoutCupon.cshtml";
+    @model DescuentoDamasco.Models.DescuentoModel
+
+}
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<div class="form-coupon">
+    <div class="container-fluid">
+        <style>
+            .error-message {
+                color: red;
+                font-size: 14px;
+                margin-top: 5px;
+            }
+        </style>
+        <div class="logos col mt-3">
+            <div class="brand-image">
+                <img src="~/img/logodamascorojo.png" alt="Damasco Rojo Logo">
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <h3>Consumir cupón</h3>
+        </div>
+        <div class="row g-2">
+            <form id="check-coupon">
+                <div class=" col form-group">
+                    <label for="SucursalId">Sucursales</label>
+                    <select asp-for="SucursalId" id="SucursalDestino" asp-items="Model.Sucursales" class="form-control">
+                        <option value="">Seleccione una sucursal</option>
+                    </select>
+                    <span id="sucursal-error" class="error-message"></span>
+                </div>
+                <div class="col form-group">
+                    <label for="">Código de cupón</label>
+                    <input type="text" id="num-cupon" placeholder="Código de cupón" class="form-control">
+                    <span id="num-cup-error" class="error-message"></span>
+                </div>
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary" id="confirm-btn">Consumir cupón</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+
+    const form = document.getElementById('check-coupon');
+    let valForm = form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent form submission  
+
+        ValidateError()
+        // Perform custom validation or other actions here
+        console.log('Form submission prevented.');
+    });
+    document.getElementById('check-coupon').addEventListener('submit', SubmitCoupon);
+    function SubmitCoupon() {
+        let valForm = ValidateError()
+        let sucursalInfo = document.getElementById('SucursalDestino').value
+        let numFac = document.getElementById('num-cupon').value
+        
+        if (valForm === true) {
+            DataCoupon = {
+                CouponStore: sucursalInfo,
+                CouponCode: numFac
+                
+            }
+            
+            PostDataCoupon(DataCoupon)
+        }
+    }
+    async function PostDataCoupon(data) {
+        console.log(data)
+        Swal.fire({
+            title: 'Cargando',
+            html: 'Por favor espera...',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        try {
+            const response = await fetch("/CheckCoupon/ValidateCoupon", {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            if (response.ok) {
+                // console.log(response)
+                let data = await response.json()
+                console.log(data)
+                console.log(data.resultado)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Éxito',
+                    text: data.message
+                }).then(() => {
+                    // Opcional: puedes recargar la página después de cerrar la alerta
+                    location.reload();
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.message
+                });
+            }
+        } catch {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.message
+            });
+
+        }
+    }
+    function ValidateError() {
+        let sucursalInfo = document.getElementById('SucursalDestino').value
+        let numFac = document.getElementById('num-cupon').value
+        const sucursalError = document.getElementById(
+            "sucursal-error"
+        );
+        const numCupError = document.getElementById(
+            "num-cup-error"
+        );
+        sucursalError.textContent = ''
+        numCupError.textContent = ''
+        let isValid = true
+        if (sucursalInfo === '') {
+            sucursalError.textContent = 'Elige una sucursal'
+            isValid = false;
+        }
+        if (numFac === '') {
+            numCupError.textContent = "Ingresa el código de cupón"
+            isValid = false;
+
+        }
+
+        return isValid
+
+    }
+</script>

@@ -79,7 +79,7 @@ namespace DescuentoDamasco.Models
 
     public class CheckCouponModel
     {
-        public int Store { get; set; }
+        public string CouponStore { get; set; }
         public string CouponCode { get; set; }
 
     }
@@ -87,6 +87,7 @@ namespace DescuentoDamasco.Models
     public class CouponResultCheck {
         public string CouponCode { get; set; }
         public bool Status { get; set; }
+        public DateTime DateUntilCoupon { get; set; }
     }
   
    /* public class Sucursal

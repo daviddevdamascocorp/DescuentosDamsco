@@ -369,15 +369,15 @@ namespace DescuentoDamasco.Controllers
         private void SaveDataPolicy(CouponModel couponModel)
         {
             Descuento();
-
+            var Estatus = 0;
             try
             {
                 // Abrir la conexión
                 _connectionDescuento.Open();
 
                 using (SqlCommand sqlCommand = new SqlCommand(@"INSERT INTO InfoDescuento 
-                ([Cedula_Cliente], [Nombre_Cliente], [nro.Cupon], [Fecha_Emision], [Fecha_Vencimiento], [Correo], [Telefono]) 
-                VALUES (@cedula, @Nombre, @Cupon, @fecha_Emision, @fecha_vencimiento, @Correo, @Telefono)",
+                ([Cedula_Cliente], [Nombre_Cliente], [nro.Cupon], [Fecha_Emision], [Fecha_Vencimiento], [Correo], [Telefono],[Monto],[Estatus],[TiendaConsumo]) 
+                VALUES (@cedula, @Nombre, @Cupon, @fecha_Emision, @fecha_vencimiento, @Correo, @Telefono,@Monto,@Estatus,@Tienda)",
                         _connectionDescuento))
                 {
                     // Asignar parámetros
@@ -388,6 +388,9 @@ namespace DescuentoDamasco.Controllers
                     sqlCommand.Parameters.AddWithValue("@fecha_vencimiento", couponModel.dateUntilCoupon);
                     sqlCommand.Parameters.AddWithValue("@Correo", couponModel.ClienteInfo.EmailClient );
                     sqlCommand.Parameters.AddWithValue("@Telefono", couponModel.ClienteInfo.PhoneNumberClient );
+                    sqlCommand.Parameters.AddWithValue("@Monto", couponModel.ClienteInfo.Monto );
+                    sqlCommand.Parameters.AddWithValue("@Estatus",Estatus  );
+                    sqlCommand.Parameters.AddWithValue("@Tienda",couponModel.ClienteInfo.StoreCode  );
 
                     // Ejecutar la consulta
                     sqlCommand.ExecuteNonQuery();

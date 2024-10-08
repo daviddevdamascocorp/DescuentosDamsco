@@ -373,6 +373,7 @@
             let numFac = document.getElementById('num-fac').value
             let tipoCed = document.getElementById('tipo-doc').value
             let Cedula = document.getElementById('num-doc').value
+            let Monto = document.getElementById('total-descuento').value
             let nombre = document.getElementById('Nombre').value
             let apellido = document.getElementById('Apellido').value
             let tipoNumCel = document.getElementById('cod-telf').value
@@ -408,6 +409,7 @@
                     InvoiceNumber: numFac,
                     InvoiceDate: fechaFactura,
                     Cedula: Cedula,
+                    Monto:Monto,
                     AmountDiscount: montoDescuento,
                     StoreCode: sucursalInfo,
                     NameClient: nombre,

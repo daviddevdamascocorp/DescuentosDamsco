@@ -123,47 +123,86 @@ namespace DescuentoDamasco.Controllers
             SqlCommand sqlCommand = new SqlCommand(query, _connectionDescuento);
             SqlDataAdapter adapter = new SqlDataAdapter(sqlCommand);
             sqlCommand.Parameters.AddWithValue("@Coupon", checkCouponForm.CouponCode);
+            JsonResult rest = null;
             using (var reader = sqlCommand.ExecuteReader())
             {
                 if (reader.Read())
                 {
-                    couponResultCheck.CouponCode = reader["nro.Cupon"].ToString();
+                    couponResultCheck.CouponCode = reader["nro.Cupon"].ToString().Trim();
                     var stat = Convert.ToBoolean(reader["Estatus"]);
+                  
                     var dates = Convert.ToDateTime(reader["Fecha_Vencimiento"]);
                     Console.WriteLine(dates);
+             
                     couponResultCheck.Status = stat;
                     couponResultCheck.DateUntilCoupon = dates;
-                    if (couponResultCheck.CouponCode == null)
-                    {
-                        return Json(new { success = false, couponResultCheck.Status });
-                    }
-                    else if (couponResultCheck.CouponCode == checkCouponForm.CouponCode && couponResultCheck.Status == false)
-                    {
-                        
-                            string queryUpadate = @"UPDATE [Descuento].[dbo].[InfoDescuento]
-                                 SET [Estatus] = @stat , [TiendaConsumo] = @store
-                                    WHERE [nro.Cupon] = @Coupon";
-                            sqlCommand.Parameters.AddWithValue("@stat", true);
-                            sqlCommand.Parameters.AddWithValue("@store", primerosDosDigitos);
-                            sqlCommand.Parameters.AddWithValue("@Coupon", checkCouponForm.CouponCode);
-                            return Json(new { success = true });
-
-                        
-
-                    }
-                    else if(couponResultCheck.CouponCode != checkCouponForm.CouponCode)
-                    {
-                        return Json(new { success = false, couponResultCheck.Status });
-                    }
-                    else if (couponResultCheck.CouponCode == checkCouponForm.CouponCode && couponResultCheck.Status == true)
-                    {
-                        return Json(new { success = false, couponResultCheck.Status });
-                    }
+                    rest = UpdateCoupon(checkCouponForm, couponResultCheck,primerosDosDigitos);
                 }
             }
            
             _connectionDescuento.Close();
-            return View();
+            return Json(rest);
+        }
+
+        public JsonResult UpdateCoupon(CheckCouponModel checkCouponForm, CouponResultCheck couponResultCheck, int tienda)
+        {
+          var respStatus = false;
+         var messageResp = string.Empty;
+            DateTime dateClaim = DateTime.Now;
+            if (couponResultCheck.CouponCode == null)
+            {
+                return Json(new { success = false, couponResultCheck.Status });
+            }
+            else if (couponResultCheck.CouponCode == checkCouponForm.CouponCode && couponResultCheck.Status == false &&  dateClaim < couponResultCheck.DateUntilCoupon)
+            {
+
+                try
+                {
+
+                    string queryUpadate = @"UPDATE [Descuento].[dbo].[InfoDescuento]
+                                 SET [Estatus] = @stat , [TiendaConsumo] = @store
+                                    WHERE [nro.Cupon] = @Coupon";
+                    SqlCommand sqlCommand = new SqlCommand(queryUpadate, _connectionDescuento);
+                    sqlCommand.Parameters.AddWithValue("@stat", true);
+                    sqlCommand.Parameters.AddWithValue("@store", tienda);
+                    sqlCommand.Parameters.AddWithValue("@Coupon", checkCouponForm.CouponCode);
+                  
+                    sqlCommand.ExecuteNonQuery();
+                    isSuccess = true;
+                    respStatus = true;
+                    messageResp = "Cupón reclamado";
+
+                }
+                catch (Exception ex)
+                {
+                    isSuccess = false;
+                    message = "Error al actualizar en la base de datos: " + ex.Message;
+                    respStatus = false;
+                    messageResp = message;
+                }
+
+
+              
+
+
+
+            }
+            if (couponResultCheck.CouponCode != checkCouponForm.CouponCode)
+            {
+                respStatus = false;
+                messageResp = "Cupón invalido";
+            }
+            else if (couponResultCheck.CouponCode == checkCouponForm.CouponCode && couponResultCheck.Status == true && dateClaim < couponResultCheck.DateUntilCoupon)
+            {
+                respStatus = false;
+                messageResp = "El Cupón ya fue usado";
+            }else if(couponResultCheck.CouponCode == checkCouponForm.CouponCode && couponResultCheck.Status == false && dateClaim > couponResultCheck.DateUntilCoupon)
+            {
+                respStatus = false;
+                messageResp = "El Cupón esta vencido";
+
+            }
+            return Json(new { success = respStatus, message = messageResp }); ;
         }
 
        

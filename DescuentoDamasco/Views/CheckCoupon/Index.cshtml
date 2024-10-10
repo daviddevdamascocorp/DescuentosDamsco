@@ -97,15 +97,26 @@
                 // console.log(response)
                 let data = await response.json()
                 console.log(data)
-                console.log(data.resultado)
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Éxito',
-                    text: data.message
-                }).then(() => {
-                    // Opcional: puedes recargar la página después de cerrar la alerta
-                    location.reload();
-                });
+                console.log(data.value)
+                if (data.value.success == true) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: data.value.message
+                    }).then(() => {
+                        // Opcional: puedes recargar la página después de cerrar la alerta
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                       
+                        text: data.value.message
+                    }).then(() => {
+                        // Opcional: puedes recargar la página después de cerrar la alerta
+                        location.reload();
+                    });
+                }
             } else {
                 Swal.fire({
                     icon: 'error',

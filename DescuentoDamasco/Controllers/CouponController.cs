@@ -1,11 +1,13 @@
 ﻿using DescuentoDamasco.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.SqlServer.Server;
 using Newtonsoft.Json;
 using SAPbobsCOM;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -340,10 +342,11 @@ namespace DescuentoDamasco.Controllers
         {
            MessageContent messageContent = new MessageContent();
             DateTime dates = couponModel.dateUntilCoupon;
-            var CouponDateFormatted = dates.ToString("dd/MM/yyyy");
+            
+            var format = "dd  MMMM  yyyy";
+            var dateLetras = dates.ToString(format, new CultureInfo("es-ES"));
             var result = "";
-            var messageBody = $"Tienes un  saldo a tu favor de {couponModel.AmountDiscount:n}, con este cupón {couponModel.CouponId}, dcto intransferible valido" +
-                $" hasta el {CouponDateFormatted}";
+            var messageBody = $"¡Felicitaciones! Tu lealtad tiene recompensa. Tienes un saldo a favor de {couponModel.AmountDiscount:n}, Usa el código {couponModel.CouponId} para usarlo en tu próxima compra. Válido en todas nuestras tiendas a nivel nacional hasta el {dateLetras}";
             var url = "http://200.74.198.50:14010/notifismsdamas";
             messageContent.Message = messageBody;
             messageContent.ClientNumber = couponModel.ClienteInfo.PhoneNumberClient;

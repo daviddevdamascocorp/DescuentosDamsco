@@ -7,6 +7,7 @@
     @model DescuentoDamasco.Models.DescuentoModel
    
 }
+
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -27,7 +28,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center">
-            <h3>Generar Cupón de descuento</h3>
+            <h3>Generar Guia de Despacho Tienda</h3>
         </div>
         <div class="row g-2">
             <form id="cupon-form" >
@@ -172,7 +173,7 @@
                 </div>
 
 
-                <div class="form-group">
+            @*     <div class="form-group">
                     <label for="total-factura">Total de Factura</label>
                     <input type="text" id="total-factura" name="totalFactura" class="form-control" placeholder="Total de Factura" readonly>
                     <span id="total-facturar-error" class="error-message"></span>
@@ -181,10 +182,10 @@
                     <label for="total-descuento">Total de Descuento</label>
                     <input type="text" id="total-descuento" name="totalFactura" class="form-control" placeholder="Total de Descuento" readonly>
 
-                </div>
+                </div> *@
 
                 <div class="mt-4">
-                    <button type="submit" class="btn btn-primary" id="confirm-btn">Generar Cupón</button>
+                    <button type="submit" class="btn btn-primary" id="confirm-btn">Generar Guía Despacho </button>
 
                 </div>
 
@@ -193,6 +194,8 @@
         </div>
     </div>
     <script>
+        let facturaData = []; // Declarar la variable fuera de la función para que sea accesible
+
         async function getState() {
             let countryVal = document.getElementById('country').value;
             try {
@@ -213,7 +216,7 @@
                 alert(error.message);
             }
         }
-        // Función para obtener los municipios
+
         async function getMunicipality() {
             let stateVal = document.getElementById('estado-emision').value;
             try {
@@ -235,7 +238,6 @@
             }
         }
 
-        // Función para obtener las ciudades
         async function getCity() {
             let stateVal = document.getElementById('estado-emision').value;
             try {
@@ -261,7 +263,6 @@
             }
         }
 
-        // Función para obtener las zonas
         async function getZones() {
             let stateVal = document.getElementById('estado-emision').value;
             let muniVal = document.getElementById('municipio-emision').value;
@@ -282,7 +283,6 @@
             }
         }
 
-        // Evento para cuando se cambia la sucursal o el número de factura
         $(document).ready(function () {
             $('#SucursalDestino, #num-fac').on('change', function () {
                 var sucursal = $('#SucursalDestino').val();
@@ -300,11 +300,9 @@
                         },
                         success: function (data) {
                             console.log('Datos recibidos:', data);
-
-
+                            facturaData = data; // Asignar los datos recibidos a facturaData
 
                             if (data.length > 0) {
-                                // Rellenar los campos
                                 $('#fecha-factura').val(data[0].fechaFactura.split('T')[0]);
 
                                 var cliente = data[0];
@@ -315,20 +313,6 @@
                                 var nombreArray = cliente.nomCliente.split(' ');
                                 $('#Nombre').val(nombreArray[0]);
                                 $('#Apellido').val(nombreArray[1] || '');
-
-                                // Calcular el total de la factura
-                                let tot_factura = 0;
-                                let montoDescuento = 0;
-                                data.forEach(function (item) {
-                                    tot_factura += item.precioUSD;
-                                });
-                                if (tot_factura >= 10.00 && tot_factura <= 500.99) {
-                                    montoDescuento = tot_factura * 0.05
-                                } else if (tot_factura >= 501.00) {
-                                    montoDescuento = tot_factura * 0.10
-                                }
-                                $('#total-factura').val(tot_factura.toFixed(2));
-                                $('#total-descuento').val(montoDescuento.toFixed(2));
                             } else {
                                 Swal.fire({
                                     icon: 'warning',
@@ -349,7 +333,6 @@
                 }
             });
 
-            // Función para limpiar los campos del formulario
             function limpiarCampos() {
                 $('#serialesDropdown').val('');
                 $('#manualEntry').val('').prop('disabled', true);
@@ -360,287 +343,231 @@
                 $('#Apellido').val('');
                 $('#fecha-factura').val('');
             }
-        });
 
-        const form = document.getElementById('cupon-form');
-        document.getElementById('cupon-form').addEventListener('submit', SubmitText);
-        function SubmitText(event) {
-            //event.preventDefault();
-            console.log(ValidateError())
+            const form = document.getElementById('cupon-form');
+            form.addEventListener('submit', SubmitText);
 
-            let valForm = ValidateError()
-            let sucursalInfo = document.getElementById('SucursalDestino').value
-            let numFac = document.getElementById('num-fac').value
-            let tipoCed = document.getElementById('tipo-doc').value
-            let Cedula = document.getElementById('num-doc').value
-            let nombre = document.getElementById('Nombre').value
-            let apellido = document.getElementById('Apellido').value
-            let tipoNumCel = document.getElementById('cod-telf').value
-            let numCel = document.getElementById('num-telf').value
-            let fechaNac = document.getElementById('fecha-nac').value
-            let fechaFactura = document.getElementById('fecha-factura').value
-            let estadoCivil = document.getElementById('estado-civil').value
-            let generoCliente = document.getElementById('genero-cliente').value
-            let emailInfo = document.getElementById('Correo').value
-            let country = $('#country').val().trim()
-            let state = $('#estado-emision').val().trim()
-            let municip = $('#municipio-emision').val().trim()
-            let ciudad = $('#ciudad-emision').val().trim()
-            let zona = $('#Zona-emision').val().trim()
-            let totalFactura = document.getElementById('total-factura').value
-            let montoDescuento = ''
-            if (totalFactura >= 10.00 && totalFactura <= 500.99) {
-                montoDescuento = totalFactura * 0.05
-            } else if (totalFactura >= 501.00) {
-                montoDescuento = totalFactura * 0.10
+            function SubmitText(event) {
+                event.preventDefault(); // Evitar el envío del formulario
+
+                let valForm = ValidateError();
+                if (valForm === true) {
+                    let sucursalInfo = document.getElementById('SucursalDestino').value;
+                    let numFac = document.getElementById('num-fac').value;
+                    let tipoCed = document.getElementById('tipo-doc').value;
+                    let Cedula = document.getElementById('num-doc').value;
+                    let nombre = document.getElementById('Nombre').value;
+                    let apellido = document.getElementById('Apellido').value;
+                    let tipoNumCel = document.getElementById('cod-telf').value;
+                    let numCel = document.getElementById('num-telf').value;
+                    let fechaFactura = document.getElementById('fecha-factura').value;
+                    let emailInfo = document.getElementById('Correo').value;
+                    let country = $('#country').val().trim();
+                    let state = $('#estado-emision').val().trim();
+                    let municip = $('#municipio-emision').val().trim();
+                    let ciudad = $('#ciudad-emision').val().trim();
+                    let zona = $('#Zona-emision').val().trim();
+                    let articulos = []; // Array para almacenar los artículos
+
+                    facturaData.forEach(item => {
+                        articulos.push({
+                            codarticulo: item.codArticulo,
+                            nomArticulo: item.descripcion
+                        });
+                    });
+
+                    let dataDireccion = {
+                        codeContry: country,
+                        codeProvince: state,
+                        codeCity: ciudad,
+                        codeMunicipality: municip,
+                        codeZone: zona
+                    };
+
+                    let dataFactura = {
+                        InvoiceNumber: numFac,
+                        idSucursal: sucursalInfo,
+                        InvoiceDate: fechaFactura,
+                        Cedula: Cedula,
+                        StoreCode: sucursalInfo,
+                        NameClient: nombre,
+                        SurnameClient: apellido,
+                        EmailClient: emailInfo,
+                        PhoneNumberClient: tipoNumCel + numCel,
+                        AddressClient: dataDireccion,
+                        Articles: articulos
+                    };
+
+                    console.log(dataFactura);
+                    SendMessageCoupon(dataFactura);
+                }
             }
-            
-            if (valForm === true) {
-                let dataDireccion = {
-                    codeContry: country,
-                    codeProvince: state,
-                    codeCity: ciudad,
-                    codeMunicipality: municip,
-                    codeZone: zona
 
-                }
-                let dataFactura = {
-                    InvoiceNumber: numFac,
-                    InvoiceDate: fechaFactura,
-                    Cedula: Cedula,
-                    AmountDiscount: montoDescuento,
-                    StoreCode: sucursalInfo,
-                    NameClient: nombre,
-                    SurnameClient: apellido,
-                    EmailClient: emailInfo,
-                    PhoneNumberClient: tipoNumCel + numCel,
-                    AmountInvoice: totalFactura,
-                    AddressClient: dataDireccion
-                }
-
-                console.log(dataFactura)
-                SendMessageCoupon(dataFactura)
-                
-            }
-        }
-
-        async function SendMessageCoupon(data){
-            console.log(data)
-            Swal.fire({
-                title: 'Cargando',
-                html: 'Por favor espera...',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-            try {
-                const response = await fetch("/Coupon/InfoClient", {
-                    method: "POST",
-                    body: JSON.stringify(data),
-                    headers: {
-                        "Content-Type": "application/json"
+            async function SendMessageCoupon(data) {
+                console.log(data);
+                Swal.fire({
+                    title: 'Cargando',
+                    html: 'Por favor espera...',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
                     }
                 });
-                if (response.ok) {
-                    // console.log(response)
-                    let data = await response.json()
-                    console.log(data)
-                    console.log(data.resultado)
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Éxito',
-                        text: data.message
-                    }).then(() => {
-                        // Opcional: puedes recargar la página después de cerrar la alerta
-                        location.reload();
+                try {
+                    const response = await fetch("/Coupon/InfoClient", {
+                        method: "POST",
+                        body: JSON.stringify(data),
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
                     });
-                } else {
+                    if (response.ok) {
+                        let data = await response.json();
+                        console.log(data);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: data.message
+                        }).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        let errorData = await response.json();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: errorData.message
+                        });
+                    }
+                } catch (error) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: data.message
+                        text: 'Hubo un problema al enviar los datos.'
                     });
                 }
-                        } catch {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: data.message
-                });
             }
-        }
-       let valForm = form.addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent form submission  
 
-            ValidateError()
-            // Perform custom validation or other actions here
-            console.log('Form submission prevented.');
+            function ValidateError() {
+                let sucursalInfo = document.getElementById('SucursalDestino').value;
+                let numFac = document.getElementById('num-fac').value;
+                let tipoCed = document.getElementById('tipo-doc').value;
+                let cedula = document.getElementById('num-doc').value;
+                let nombre = document.getElementById('Nombre').value;
+                let apellido = document.getElementById('Apellido').value;
+                let tipoNumCel = document.getElementById('cod-telf').value;
+                let numCel = document.getElementById('num-telf').value;
+                let fechaNac = document.getElementById('fecha-nac').value;
+                let estadoCivil = document.getElementById('estado-civil').value;
+                let generoCliente = document.getElementById('genero-cliente').value;
+                let emailInfo = document.getElementById('Correo').value;
+                let country = $('#country').val();
+                let state = $('#estado-emision').val();
+                let municip = $('#municipio-emision').val();
+                let ciudad = $('#ciudad-emision').val();
+                let zona = $('#Zona-emision').val();
+
+                const errores = {
+                    sucursal: document.getElementById("sucursal-error"),
+                    numFac: document.getElementById("num-fac-error"),
+                    tipoCed: document.getElementById("tipo-ced-error"),
+                    numCed: document.getElementById("num-doc-error"),
+                    nombre: document.getElementById("nombre-error"),
+                    apellido: document.getElementById("apellido-error"),
+                    tipoNumTelf: document.getElementById('cod-telf-error'),
+                    numTelf: document.getElementById('num-telf-error'),
+                    fechaNac: document.getElementById('fecha-nac-error'),
+                    estadoCivil: document.getElementById('estado-civil-error'),
+                    generoCliente: document.getElementById('genero-cliente-error'),
+                    correo: document.getElementById('correo-error'),
+                    pais: document.getElementById('country-error'),
+                    estado: document.getElementById('estado-error'),
+                    ciudad: document.getElementById('ciudad-error'),
+                    municipio: document.getElementById('municipio-error'),
+                    zona: document.getElementById('zona-error')
+                };
+
+                // Limpiar mensajes de error
+                for (let key in errores) {
+                    errores[key].textContent = '';
+                }
+
+                let isValid = true;
+
+                if (sucursalInfo === '') {
+                    errores.sucursal.textContent = 'Elige una sucursal';
+                    isValid = false;
+                }
+                if (numFac === '') {
+                    errores.numFac.textContent = "Ingresa el número de factura";
+                    isValid = false;
+                }
+                if (tipoCed === '') {
+                    errores.tipoCed.textContent = "Documento";
+                    isValid = false;
+                }
+                if (cedula === '') {
+                    errores.numCed.textContent = "Número Doc";
+                    isValid = false;
+                }
+                if (nombre === '') {
+                    errores.nombre.textContent = "Nombre";
+                    isValid = false;
+                }
+                if (apellido === '') {
+                    errores.apellido.textContent = "Apellido";
+                    isValid = false;
+                }
+                if (tipoNumCel === '') {
+                    errores.tipoNumTelf.textContent = "Elige";
+                    isValid = false;
+                }
+                if (numCel === '') {
+                    errores.numTelf.textContent = "Número teléfono";
+                    isValid = false;
+                }
+                if (fechaNac === '') {
+                    errores.fechaNac.textContent = 'Nacimiento';
+                    isValid = false;
+                }
+                if (estadoCivil === '') {
+                    errores.estadoCivil.textContent = 'Elige estado';
+                    isValid = false;
+                }
+                if (generoCliente === '') {
+                    errores.generoCliente.textContent = 'Elige';
+                    isValid = false;
+                }
+                if (emailInfo === '') {
+                    errores.correo.textContent = "Ingresa el correo";
+                    isValid = false;
+                }
+                if (country === '') {
+                    errores.pais.textContent = "País";
+                    isValid = false;
+                }
+                if (state === '') {
+                    errores.estado.textContent = "Estado";
+                    isValid = false;
+                }
+                if (municip === '') {
+                    errores.municipio.textContent = "Municipio";
+                    isValid = false;
+                }
+                if (ciudad === '') {
+                    errores.ciudad.textContent = "Ciudad";
+                    isValid = false;
+                }
+                if (zona === '') {
+                    errores.zona.textContent = "Zona";
+                    isValid = false;
+                }
+
+                return isValid;
+            }
         });
-       
-          function ValidateError() {
-           
-            let sucursalInfo = document.getElementById('SucursalDestino').value
-            let numFac = document.getElementById('num-fac').value
-            let tipoCed = document.getElementById('tipo-doc').value
-            let cedula = document.getElementById('num-doc').value
-            let nombre = document.getElementById('Nombre').value
-            let apellido = document.getElementById('Apellido').value
-            let tipoNumCel = document.getElementById('cod-telf').value
-            let numCel = document.getElementById('num-telf').value
-            let fechaNac = document.getElementById('fecha-nac').value
-            let estadoCivil = document.getElementById('estado-civil').value
-            let generoCliente = document.getElementById('genero-cliente').value
-            let emailInfo = document.getElementById('Correo').value
-            let country = $('#country').val()
-            let state = $('#estado-emision').val()
-            let municip = $('#municipio-emision').val()
-            let ciudad = $('#ciudad-emision').val()
-            let zona = $('#Zona-emision').val()
-            let totalFactura = document.getElementById('total-factura').value
-            const sucursalError = document.getElementById(
-                "sucursal-error"
-            );
-            const numFacError = document.getElementById(
-                "num-fac-error"
-            );
-           
-            const tipoCedError = document.getElementById(
-                "tipo-ced-error"
-            );
-
-            const numCedError = document.getElementById(
-                "num-doc-error"
-            );
-            const nombreError = document.getElementById(
-                "nombre-error"
-            )
-            const apellidoError = document.getElementById(
-                "apellido-error"
-            )
-            
-            const tipoNumTelfError = document.getElementById('cod-telf-error')
-            const NumTelfError = document.getElementById('num-telf-error')
-            const fechaNacError = document.getElementById('fecha-nac-error')
-            const estadoCivilError = document.getElementById('estado-civil-error')
-            const generoClienteError = document.getElementById('genero-cliente-error')
-            const correoError = document.getElementById('correo-error')
-            const paisError = document.getElementById('country-error')
-            const estadoError = document.getElementById('estado-error')
-            const ciudadError = document.getElementById('ciudad-error')
-            const municipioError = document.getElementById('municipio-error')
-            const zonaError = document.getElementById('zona-error')
-            const facturaError = document.getElementById('total-facturar-error')
-            //texto en blanco
-            sucursalError.textContent = ''
-            numFacError.textContent = ''
-     
-            tipoCedError.textContent = ''
-            numCedError.textContent = ''
-            nombreError.textContent = ''
-            apellidoError.textContent = ''
-            tipoNumTelfError.textContent = ''
-            NumTelfError.textContent = ''
-            fechaNacError.textContent = ''
-            estadoCivilError.textContent = ''
-            generoClienteError.textContent = ''
-            correoError.textContent = ''
-            paisError.textContent = ''
-            estadoError.textContent = ''
-            municipioError.textContent = ''
-            zonaError.textContent = ''
-            facturaError.textContent = ''
-            let isValid = true
-            if (sucursalInfo === '') {
-                sucursalError.textContent = 'Elige una sucursal'
-                isValid = false;
-            }
-            if (numFac === '') {
-                numFacError.textContent = "Ingresa el numero de factura"
-                isValid = false;
-
-            }
-
-
-            if (tipoCed == '') {
-                tipoCedError.textContent = "Documento"
-                isValid = false;
-            }
-
-            if (cedula == '') {
-                numCedError.textContent = "Número Doc"
-                isValid = false;
-            }
-
-            if (nombre == '') {
-                nombreError.textContent = "Nombre"
-                isValid = false;
-            }
-            if (apellido === '') {
-                apellidoError.textContent = "Apellido"
-                isValid = false;
-            }
-
-            if (tipoNumCel == '') {
-                tipoNumTelfError.textContent = "Elige"
-                isValid = false;
-            }
-            if (numCel === '') {
-                NumTelfError.textContent = "Número teléfono"
-                isValid = false;
-            }
-            if (fechaNac === '') {
-                fechaNacError.textContent = 'Nacimiento'
-                isValid = false;
-            }
-            if (estadoCivil === '') {
-                estadoCivilError.textContent = 'Elige estado'
-                isValid = false;
-
-            }
-            if (generoCliente === '') {
-                generoClienteError.textContent = 'Elige'
-                isValid = false;
-            }
-
-            if (emailInfo === '') {
-                correoError.textContent = "Ingresa el correo"
-                isValid = false;
-            }
-
-            if (country === '') {
-                paisError.textContent = "País"
-                isValid = false;
-            }
-
-            if (state === '') {
-                estadoError.textContent = "Estado"
-                isValid = false;
-            }
-
-            if (municip === '') {
-                municipioError.textContent = "Municipio"
-                isValid = false;
-            }
-
-            if (ciudad === '') {
-                ciudadError.textContent = "Ciudad"
-                isValid = false;
-            }
-            if (zona === '') {
-                zonaError.textContent = "Zona"
-                isValid = false;
-            }
-            if (totalFactura === '') {
-                facturaError.textContent = "Valida el total de factura"
-                isValid = false;
-            }
-
-            return isValid
-
-
-        }
-        
-        
     </script>
+
+
+
 </div>

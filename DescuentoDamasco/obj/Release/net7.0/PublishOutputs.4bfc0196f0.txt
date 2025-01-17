@@ -1,0 +1,16 @@
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\DescuentoDamasco.exe
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\appsettings.Development.json
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\appsettings.json
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\libman.json
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\DescuentoDamasco.dll
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\DescuentoDamasco.deps.json
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\DescuentoDamasco.runtimeconfig.json
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\DescuentoDamasco.pdb
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\Microsoft.SqlServer.Server.dll
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\Newtonsoft.Json.dll
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\System.Data.SqlClient.dll
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\runtimes\win-arm64\native\sni.dll
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\runtimes\win-x64\native\sni.dll
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\runtimes\win-x86\native\sni.dll
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\DescuentosDamsco\DescuentosDamsco\DescuentoDamasco\obj\Release\net7.0\PubTmp\Out\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

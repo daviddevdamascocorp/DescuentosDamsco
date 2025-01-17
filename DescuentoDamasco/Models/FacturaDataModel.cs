@@ -12,5 +12,7 @@
         public decimal PrecioUSD { get; set; }
         public decimal PrecioPoliza { get; set; }
         public string CodigoAlmacen { get; set; }
+
+        public string Articulo { get; set; }
     }
 }

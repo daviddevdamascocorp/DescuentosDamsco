@@ -250,8 +250,8 @@ namespace DescuentoDamasco.Controllers
             string Almacen = Regex.Replace(Almacen2, @"\s+", "");
             string query = @"
                         SELECT li.NumFactura, fa.FechaFactura, fa.CodCliente, fa.NomCliente, li.CodArticulo,li.Serial,li.Descripcion,ROUND(li.PrecioUSD, 2) AS PrecioUSD, li.CodigoAlmacen
-                    FROM KLK_FACTURALINE li
-                    INNER JOIN KLK_FACTURAHDR fa ON li.NumFactura = fa.NumFactura
+FROM KLK_FACTURALINE li
+INNER JOIN KLK_FACTURAHDR fa ON li.NumFactura = fa.NumFactura and li.Sucursal=fa.Sucursal
                     WHERE fa.NumFactura = @numFactura AND fa.IDSucursal = @Almacen";
 
             var result = new List<FacturaDataModel>();
@@ -267,6 +267,7 @@ namespace DescuentoDamasco.Controllers
                 var precioDefinDolar = Math.Round(Convert.ToDecimal(reader["PrecioUSD"]), 0);
                 var precioSinInva = precioDefinDolar / 1.16m;
                 var precioPoliza = Math.Round(precioSinInva * 0.06m, 2);
+
                 result.Add(new FacturaDataModel
                 {
                     NumFactura = reader["NumFactura"].ToString(),
@@ -278,10 +279,14 @@ namespace DescuentoDamasco.Controllers
                     Descripcion = reader["Descripcion"].ToString(),
                     PrecioUSD = Math.Round(Convert.ToDecimal(reader["PrecioUSD"]), 0),
                     PrecioPoliza = precioPoliza,
-                    CodigoAlmacen = reader["CodigoAlmacen"].ToString()
+                    CodigoAlmacen = reader["CodigoAlmacen"].ToString(),
+                    Articulo= reader["CodArticulo"].ToString()
                 });
             }
             _connectionKlkPos.Close();
+
+          
+
             return Json(result);
         }
         private string ObtenerAlmacen(long sucursal)
@@ -330,20 +335,23 @@ namespace DescuentoDamasco.Controllers
 
 
 
-            var respMessage = SendMessage(couponModel);
-            SaveDataPolicy(couponModel);
-            Console.WriteLine(respMessage);
+            var respMessage = SendMessage(couponModel );
 
-            return Json(new { success = true}); ;
+            SaveDataPolicy(couponModel );
+            Console.WriteLine(respMessage);
+           
+            return Json(new { success = true}); 
         }
-       public async Task  SendMessage( CouponModel couponModel)
+
+
+       public async Task  SendMessage( CouponModel couponModel   )
         {
            MessageContent messageContent = new MessageContent();
             DateTime dates = couponModel.dateUntilCoupon;
             var CouponDateFormatted = dates.ToString("dd/MM/yyyy");
             var result = "";
-            var messageBody = $"Tienes un  saldo a tu favor de {couponModel.AmountDiscount:n}, con este cupón {couponModel.CouponId}, dcto intransferible valido" +
-                $" hasta el {CouponDateFormatted}";
+            var messageBody = $"¡Gracias por su compra! Nos complace informarle que cuenta con un servicio de entrega asignado con Flety. Para realizar el seguimiento de su envío por favor contactarse al siguiente numero de Flety 04126087124 para compartir sus opiniones, haga clic aquí:   https://forms.office.com/r/iDEhvgHMx1?origin=lprLink  Damasco siempre da mas." +
+                $"";
             var url = "http://200.74.198.50:14010/notifismsdamas";
             messageContent.Message = messageBody;
             messageContent.ClientNumber = couponModel.ClienteInfo.PhoneNumberClient;
@@ -359,35 +367,33 @@ namespace DescuentoDamasco.Controllers
                 httpClient.DefaultRequestHeaders.Add("X-Auth-Apikey", "57xg$mG8%H4*");
                 resp = await httpClient.PostAsync(url, bodyRequest);
                 resp.EnsureSuccessStatusCode();
-              
+                Console.WriteLine(resp.Content);
+
             }
 
            
         }
 
-
         private void SaveDataPolicy(CouponModel couponModel)
         {
-            Descuento();
+            ConnectionKlkPos();
 
             try
             {
                 // Abrir la conexión
-                _connectionDescuento.Open();
+                _connectionKlkPos.Open();
 
-                using (SqlCommand sqlCommand = new SqlCommand(@"INSERT INTO InfoDescuento 
-                ([Cedula_Cliente], [Nombre_Cliente], [nro.Cupon], [Fecha_Emision], [Fecha_Vencimiento], [Correo], [Telefono]) 
-                VALUES (@cedula, @Nombre, @Cupon, @fecha_Emision, @fecha_vencimiento, @Correo, @Telefono)",
-                        _connectionDescuento))
+                using (SqlCommand sqlCommand = new SqlCommand(@"INSERT INTO  Flety
+                ([Numfactura],[Tienda],[Estatus],[Fecha_Actualizacion]) 
+                VALUES (@numfactura, @Tienda,'N', @fecha)",
+                        _connectionKlkPos))
                 {
+
                     // Asignar parámetros
-                    sqlCommand.Parameters.AddWithValue("@cedula", couponModel.ClienteInfo.Cedula );
-                    sqlCommand.Parameters.AddWithValue("@Nombre", couponModel.ClienteInfo.NameClient );
-                    sqlCommand.Parameters.AddWithValue("@Cupon", couponModel.CouponId );
-                    sqlCommand.Parameters.AddWithValue("@fecha_Emision", couponModel.ClienteInfo.InvoiceDate);
-                    sqlCommand.Parameters.AddWithValue("@fecha_vencimiento", couponModel.dateUntilCoupon);
-                    sqlCommand.Parameters.AddWithValue("@Correo", couponModel.ClienteInfo.EmailClient );
-                    sqlCommand.Parameters.AddWithValue("@Telefono", couponModel.ClienteInfo.PhoneNumberClient );
+                    sqlCommand.Parameters.AddWithValue("@numfactura", couponModel.ClienteInfo.InvoiceNumber);
+                    sqlCommand.Parameters.AddWithValue("@Tienda", couponModel.ClienteInfo.idSucursal );
+                    sqlCommand.Parameters.AddWithValue("@fecha",DateTime.Now );
+
 
                     // Ejecutar la consulta
                     sqlCommand.ExecuteNonQuery();
@@ -403,9 +409,9 @@ namespace DescuentoDamasco.Controllers
             finally
             {
               
-                if (_connectionDescuento.State == System.Data.ConnectionState.Open)
+                if (_connectionKlkPos.State == System.Data.ConnectionState.Open)
                 {
-                    _connectionDescuento.Close();
+                    _connectionKlkPos.Close();
                 }
             }
         }

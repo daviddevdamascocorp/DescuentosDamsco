@@ -20,32 +20,52 @@ namespace DescuentoDamasco.Models
         public Decimal AmountDiscount { get; set; }
         public DateTime dateUntilCoupon { get; set; }
         public ClientInfo ClienteInfo { get; set; }
+
+      
+
+       
+
+}
+
+
+    public class Article
+    {
+        public string codarticulo { get; set; }
+        public string nomArticulo { get; set; }
     }
 
+
+
     public class ClientInfo {
+
         [JsonProperty("numeroFactura")]
         public string InvoiceNumber { get; set; }
+        public string idSucursal { get; set; }
         [JsonProperty("fechaFactura")]
-
         public string Cedula { get; set; }
         [JsonProperty("Cedula")]
         public DateTime InvoiceDate { get; set; }
+
         [JsonProperty("codTienda")]
         public string StoreCode { get; set; }
         [JsonProperty("nombreCliente")]
         public string NameClient { get; set; }
         [JsonProperty("apellidoCliente")]
         public string SurnameClient { get; set; }
-
         [JsonProperty("correoCliente")]
         public string EmailClient { get; set; }
+
         [JsonProperty("telefonoCliente")]
+
         public string PhoneNumberClient { get; set; }
+        public string PhoneNumberClient2 { get; set; }
+        public List<Article> Articles { get; set; }
 
         [JsonProperty("montoFacturaCliente")]
         public Decimal AmountInvoice { get; set; }
         [JsonProperty("direcionCliente")]
         public Address AddressClient { get; set; }
+    
 
     }
 

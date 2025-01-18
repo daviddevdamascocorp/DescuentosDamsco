@@ -1,26 +1,42 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\DescuentosDamsco\\",
+  "WorkspaceRootPath": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\descuentosdamsco\\descuentodamasco\\views\\coupon\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\users\\david\\source\\repos\\descuentodamasco\\descuentodamasco\\views\\coupon\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|solutionrelative:descuentodamasco\\views\\coupon\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\descuentosdamsco\\descuentodamasco\\models\\descuentomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|solutionrelative:descuentodamasco\\models\\descuentomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\descuentosdamsco\\descuentodamasco\\controllers\\couponcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\users\\david\\source\\repos\\descuentodamasco\\descuentodamasco\\controllers\\couponcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|solutionrelative:descuentodamasco\\controllers\\couponcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\descuentosdamsco\\descuentodamasco\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\users\\david\\source\\repos\\descuentodamasco\\descuentodamasco\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|solutionrelative:descuentodamasco\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\users\\david\\source\\repos\\descuentodamasco\\descuentodamasco\\views\\coupon\\generarcomprobante.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|solutionrelative:descuentodamasco\\views\\coupon\\generarcomprobante.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\users\\david\\source\\repos\\descuentodamasco\\descuentodamasco\\models\\facturadatamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|solutionrelative:descuentodamasco\\models\\facturadatamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\users\\david\\source\\repos\\descuentodamasco\\descuentodamasco\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|solutionrelative:descuentodamasco\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\descuentosdamsco\\descuentodamasco\\models\\facturadatamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|solutionrelative:descuentodamasco\\models\\facturadatamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\users\\david\\source\\repos\\descuentodamasco\\descuentodamasco\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|solutionrelative:descuentodamasco\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\users\\david\\source\\repos\\descuentodamasco\\descuentodamasco\\controllers\\guiadespacho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|solutionrelative:descuentodamasco\\controllers\\guiadespacho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|c:\\users\\david\\source\\repos\\descuentodamasco\\descuentodamasco\\models\\comprobante\\despachomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9830C0AB-2937-49DD-BD3B-F3DE1332D651}|DescuentoDamasco\\DescuentoDamasco.csproj|solutionrelative:descuentodamasco\\models\\comprobante\\despachomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,71 +46,123 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FacturaDataModel.cs",
-              "DocumentMoniker": "C:\\DescuentosDamsco\\DescuentoDamasco\\Models\\FacturaDataModel.cs",
-              "RelativeDocumentMoniker": "DescuentoDamasco\\Models\\FacturaDataModel.cs",
-              "ToolTip": "C:\\DescuentosDamsco\\DescuentoDamasco\\Models\\FacturaDataModel.cs",
-              "RelativeToolTip": "DescuentoDamasco\\Models\\FacturaDataModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAhAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-14T23:46:20.437Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\DescuentosDamsco\\DescuentoDamasco\\appsettings.json",
-              "RelativeDocumentMoniker": "DescuentoDamasco\\appsettings.json",
-              "ToolTip": "C:\\DescuentosDamsco\\DescuentoDamasco\\appsettings.json",
-              "RelativeToolTip": "DescuentoDamasco\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAADAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-01-14T20:53:29.609Z",
+              "Title": "GenerarComprobante.cshtml",
+              "DocumentMoniker": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Views\\Coupon\\GenerarComprobante.cshtml",
+              "RelativeDocumentMoniker": "DescuentoDamasco\\Views\\Coupon\\GenerarComprobante.cshtml",
+              "ToolTip": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Views\\Coupon\\GenerarComprobante.cshtml",
+              "RelativeToolTip": "DescuentoDamasco\\Views\\Coupon\\GenerarComprobante.cshtml",
+              "ViewState": "AQIAABYAAAAAAAAAAAAAACoAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-18T18:57:58.284Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DescuentoModel.cs",
-              "DocumentMoniker": "C:\\DescuentosDamsco\\DescuentoDamasco\\Models\\DescuentoModel.cs",
-              "RelativeDocumentMoniker": "DescuentoDamasco\\Models\\DescuentoModel.cs",
-              "ToolTip": "C:\\DescuentosDamsco\\DescuentoDamasco\\Models\\DescuentoModel.cs",
-              "RelativeToolTip": "DescuentoDamasco\\Models\\DescuentoModel.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAAEQAAAAAAAAA",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Program.cs",
+              "RelativeDocumentMoniker": "DescuentoDamasco\\Program.cs",
+              "ToolTip": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Program.cs",
+              "RelativeToolTip": "DescuentoDamasco\\Program.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAAABoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-07T13:21:03.379Z",
+              "WhenOpened": "2025-01-18T17:55:19.205Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\DescuentosDamsco\\DescuentoDamasco\\Views\\Coupon\\Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Views\\Coupon\\Index.cshtml",
               "RelativeDocumentMoniker": "DescuentoDamasco\\Views\\Coupon\\Index.cshtml",
-              "ToolTip": "C:\\DescuentosDamsco\\DescuentoDamasco\\Views\\Coupon\\Index.cshtml",
+              "ToolTip": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Views\\Coupon\\Index.cshtml",
               "RelativeToolTip": "DescuentoDamasco\\Views\\Coupon\\Index.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAPAAAA",
+              "ViewState": "AQIAAKQBAAAAAAAAAAAmwLkBAABTAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-03T15:30:25.589Z",
+              "WhenOpened": "2025-01-18T17:39:32.032Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CouponController.cs",
-              "DocumentMoniker": "C:\\DescuentosDamsco\\DescuentoDamasco\\Controllers\\CouponController.cs",
-              "RelativeDocumentMoniker": "DescuentoDamasco\\Controllers\\CouponController.cs",
-              "ToolTip": "C:\\DescuentosDamsco\\DescuentoDamasco\\Controllers\\CouponController.cs",
-              "RelativeToolTip": "DescuentoDamasco\\Controllers\\CouponController.cs",
-              "ViewState": "AQIAAFIBAAAAAAAAAAAAAFkBAAAAAAAA",
+              "DocumentIndex": 4,
+              "Title": "FacturaDataModel.cs",
+              "DocumentMoniker": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Models\\FacturaDataModel.cs",
+              "RelativeDocumentMoniker": "DescuentoDamasco\\Models\\FacturaDataModel.cs",
+              "ToolTip": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Models\\FacturaDataModel.cs",
+              "RelativeToolTip": "DescuentoDamasco\\Models\\FacturaDataModel.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-07T13:21:40.302Z",
+              "WhenOpened": "2025-01-18T15:44:35.637Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\appsettings.json",
+              "RelativeDocumentMoniker": "DescuentoDamasco\\appsettings.json",
+              "ToolTip": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\appsettings.json",
+              "RelativeToolTip": "DescuentoDamasco\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAABHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-17T21:03:21.349Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CouponController.cs",
+              "DocumentMoniker": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Controllers\\CouponController.cs",
+              "RelativeDocumentMoniker": "DescuentoDamasco\\Controllers\\CouponController.cs",
+              "ToolTip": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Controllers\\CouponController.cs",
+              "RelativeToolTip": "DescuentoDamasco\\Controllers\\CouponController.cs",
+              "ViewState": "AQIAAPEBAAAAAAAAAAAcwPQBAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-17T20:53:15.361Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Views\\Home\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "DescuentoDamasco\\Views\\Home\\Privacy.cshtml",
+              "ToolTip": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Views\\Home\\Privacy.cshtml",
+              "RelativeToolTip": "DescuentoDamasco\\Views\\Home\\Privacy.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-18T18:53:54.785Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DespachoModel.cs",
+              "DocumentMoniker": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Models\\Comprobante\\DespachoModel.cs",
+              "RelativeDocumentMoniker": "DescuentoDamasco\\Models\\Comprobante\\DespachoModel.cs",
+              "ToolTip": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Models\\Comprobante\\DespachoModel.cs",
+              "RelativeToolTip": "DescuentoDamasco\\Models\\Comprobante\\DespachoModel.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAAACEAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-17T21:02:21.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GuiaDespacho.cs",
+              "DocumentMoniker": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Controllers\\GuiaDespacho.cs",
+              "RelativeDocumentMoniker": "DescuentoDamasco\\Controllers\\GuiaDespacho.cs",
+              "ToolTip": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\Controllers\\GuiaDespacho.cs",
+              "RelativeToolTip": "DescuentoDamasco\\Controllers\\GuiaDespacho.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAF0AAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-17T21:01:00.375Z",
               "EditorCaption": ""
             }
           ]

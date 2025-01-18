@@ -13,12 +13,7 @@ namespace DescuentoDamasco.Models
     }
     public class CouponModel
     {
-        public string CouponId { get; set; }
-
-        public string PercentageDiscount { get; set; }
-
-        public Decimal AmountDiscount { get; set; }
-        public DateTime dateUntilCoupon { get; set; }
+        
         public ClientInfo ClienteInfo { get; set; }
 
       
@@ -40,10 +35,13 @@ namespace DescuentoDamasco.Models
 
         [JsonProperty("numeroFactura")]
         public string InvoiceNumber { get; set; }
+        [JsonProperty("idSucursal")]
         public string idSucursal { get; set; }
-        [JsonProperty("fechaFactura")]
-        public string Cedula { get; set; }
         [JsonProperty("Cedula")]
+
+        public string Cedula { get; set; }
+       
+        [JsonProperty("fechaFactura")]
         public DateTime InvoiceDate { get; set; }
 
         [JsonProperty("codTienda")]
@@ -51,20 +49,25 @@ namespace DescuentoDamasco.Models
         [JsonProperty("nombreCliente")]
         public string NameClient { get; set; }
         [JsonProperty("apellidoCliente")]
+
+        public string CorreoCliente { get; set; }
         public string SurnameClient { get; set; }
-        [JsonProperty("correoCliente")]
-        public string EmailClient { get; set; }
+        
 
         [JsonProperty("telefonoCliente")]
 
         public string PhoneNumberClient { get; set; }
-        public string PhoneNumberClient2 { get; set; }
+        [JsonProperty("telefonoCliente2")]
+        public string? PhoneNumberClient2 { get; set; }
+
+        [JsonProperty("productosCliente")]
         public List<Article> Articles { get; set; }
 
-        [JsonProperty("montoFacturaCliente")]
-        public Decimal AmountInvoice { get; set; }
+    
         [JsonProperty("direcionCliente")]
-        public Address AddressClient { get; set; }
+        public String AddressClient { get; set; }
+
+        public String Observation {  get; set; }
     
 
     }
@@ -72,15 +75,15 @@ namespace DescuentoDamasco.Models
     public class Address
     {
         [JsonProperty("paisCliente")]
-        public int codeContry { get; set; }
+        public string codeCountry { get; set; }
         [JsonProperty("estadoCliente")]
-        public int codeProvince { get; set; }
+        public string codeProvince { get; set; }
         [JsonProperty("ciudadCliente")]
-        public int codeCity { get; set; }
+        public string codeCity { get; set; }
         [JsonProperty("municipioCliente")]
-        public int codeMunicipality { get; set; }
+        public string codeMunicipality { get; set; }
         [JsonProperty("zonaCliente")]
-        public int codeZone { get; set; }
+        public string codeZone { get; set; }
     }
 
     public class MessageContent

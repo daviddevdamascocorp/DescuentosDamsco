@@ -1,0 +1,237 @@
+﻿
+@{
+    ViewData["Title"] = "GenerarComprobante";
+    Layout = "~/Views/Shared/_LayoutCupon.cshtml";
+    @model DescuentoDamasco.Models.DescuentoModel
+
+}
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<div class="form-client">
+
+    <div class="container-fluid">
+        <style>
+            .error-message {
+                color: red;
+                font-size: 14px;
+                margin-top: 5px;
+            }
+        </style>
+        <div class="logos col mt-3">
+            <div class="brand-image">
+                <img src="~/img/logodamascorojo.png" alt="Damasco Rojo Logo">
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <h3>Generar Guia de Despacho Tienda</h3>
+        </div>
+        <div class="row g-2">
+            <form id="cupon-form" method="post" action="/Coupon/GenerarPdf">
+                <div class="form-group">
+                    <label for="SucursalId">Sucursales</label>
+                    <select asp-for="SucursalId" id="SucursalDestino" asp-items="Model.Sucursales" class="form-control">
+                        <option value="">Seleccione una sucursal</option>
+                    </select>
+                    <span id="sucursal-error" class="error-message"></span>
+                </div>
+                <div class="row g-2">
+                    <div class="col form-group">
+                        <label for="">Número de factura</label>
+                        <input type="text" id="numfac" name="numfac" placeholder="Número de factura" class="form-control">
+                        <span id="num-fac-error" class="error-message"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Fecha de Factura</label>
+                        <input type="date" name="fecha-factura" id="fecha-factura" class="form-control">
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col form-group">
+
+                        <div class="row">
+                            <label for="">Documento de identidad</label>
+                            <div class="col form-group">
+
+                                <select name="" class="form-select" id="tipo-doc">
+                                    <option value="">Elige</option>
+                                    <option value="V">V</option>
+                                    <option value="E">J</option>
+                                </select>
+                                <span id="tipo-ced-error" class="error-message"></span>
+                            </div>
+                            <div class="col form-group">
+
+                                <input type="text" placeholder="Número de cedula" id="num-doc" class="form-control">
+                                <span id="num-doc-error" class="error-message"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Nombre </label>
+                        <input type="text" id="Nombre" placeholder="Nombre" class="form-control">
+                        <span id="nombre-error" class="error-message"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Apellido</label>
+                        <input type="text" id="Apellido" placeholder="Apellido" class="form-control">
+                        <span id="apellido-error" class="error-message"></span>
+                    </div>
+
+
+                </div>
+
+               
+                <div class="row g-2">
+                    <div class="col form-group">
+                        <label for="">
+                            Número de teléfono
+                        </label>
+                        <select name="" class="form-select" id="cod-telf">
+                            <option value="">Elige</option>
+                            <option value="0412">0412</option>
+                            <option value="0414">0414</option>
+                            <option value="0424">0424</option>
+                            <option value="0416">0416</option>
+                            <option value="0426">0426</option>
+                        </select>
+                        <span id="cod-telf-error" class="error-message"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label for=""></label>
+                        <input type="text" id="num-telf" placeholder="Número de teléfono" class="form-control">
+                        <span id="num-telf-error" class="error-message"></span>
+                    </div>
+                </div>
+
+               
+               
+
+                @*     <div class="form-group">
+                <label for="total-factura">Total de Factura</label>
+                <input type="text" id="total-factura" name="totalFactura" class="form-control" placeholder="Total de Factura" readonly>
+                <span id="total-facturar-error" class="error-message"></span>
+                </div>
+                <div class="form-group">
+                <label for="total-descuento">Total de Descuento</label>
+                <input type="text" id="total-descuento" name="totalFactura" class="form-control" placeholder="Total de Descuento" readonly>
+
+                </div> *@
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary" id="confirm-btn">Generar Guía Despacho </button>
+
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+    <script>
+        let facturaData = []; // Declarar la variable fuera de la función para que sea accesible
+
+        const form = document.getElementById('cupon-form');
+        form.addEventListener('submit', generarComprobante);
+
+        async function generarComprobante(event) {
+            let numFac = document.getElementById('num-fac').value;
+            let sucursal = document.getElementById('SucursalDestino').value;
+            fetch(`/Coupon/GenerarPdf?numfactura=${numFac}&sucursal=${sucursal}`, {
+                method: 'GET'
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    console.log(blob)
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'downloaded.pdf'; // Set your desired filename
+                    document.body.appendChild(link);
+                    link.click();
+                    //window.URL.revokeObjectURL(url);
+                    //document.body.removeChild(link);
+                })
+                .catch(error => {
+                    console.error('Error downloading PDF:', error);
+                    // Handle the error (e.g., display an error message to the user)
+                });
+           
+        }
+
+        $(document).ready(function () {
+            $('#SucursalDestino, #num-fac').on('change', function () {
+                var sucursal = $('#SucursalDestino').val();
+                var numFactura = $('#num-fac').val();
+
+                limpiarCampos();
+
+                if (sucursal && numFactura) {
+                    $.ajax({
+                        url: '/Coupon/ObtenerDatos',
+                        type: 'GET',
+                        data: {
+                            sucursal: sucursal,
+                            numFactura: numFactura
+                        },
+                        success: function (data) {
+                            console.log('Datos recibidos:', data);
+                            facturaData = data; // Asignar los datos recibidos a facturaData
+
+                            if (data.length > 0) {
+                                $('#fecha-factura').val(data[0].fechaFactura.split('T')[0]);
+
+                                var cliente = data[0];
+                                var codCliente = cliente.codCliente;
+                                $('#tipo-doc').val(codCliente.charAt(0));
+                                $('#num-doc').val(codCliente.substring(2));
+
+                                var nombreArray = cliente.nomCliente.split(' ');
+                                $('#Nombre').val(nombreArray[0]);
+                                $('#Apellido').val(nombreArray[1] || '');
+                            } else {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'No hay productos disponibles',
+                                    text: 'No se encontraron productos para esta factura.',
+                                });
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error al obtener datos',
+                                text: 'Hubo un problema al cargar los productos. Inténtalo de nuevo más tarde.',
+                            });
+                            console.error('Error al obtener datos:', status, error);
+                        }
+                    });
+                }
+            });
+
+            function limpiarCampos() {
+                $('#serialesDropdown').val('');
+                $('#manualEntry').val('').prop('disabled', true);
+                $('#totalPoliza').val('');
+                $('#tipo-doc').val('');
+                $('#num-doc').val('');
+                $('#Nombre').val('');
+                $('#Apellido').val('');
+                $('#fecha-factura').val('');
+            }
+
+           
+        });
+    </script>
+
+
+
+</div>

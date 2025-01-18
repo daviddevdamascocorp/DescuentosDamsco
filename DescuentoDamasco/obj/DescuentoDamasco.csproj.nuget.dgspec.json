@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\DescuentosDamsco\\DescuentosDamsco\\DescuentoDamasco\\DescuentoDamasco.csproj": {}
+    "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\DescuentoDamasco.csproj": {}
   },
   "projects": {
-    "C:\\DescuentosDamsco\\DescuentosDamsco\\DescuentoDamasco\\DescuentoDamasco.csproj": {
+    "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\DescuentoDamasco.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\DescuentosDamsco\\DescuentosDamsco\\DescuentoDamasco\\DescuentoDamasco.csproj",
+        "projectUniqueName": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\DescuentoDamasco.csproj",
         "projectName": "DescuentoDamasco",
-        "projectPath": "C:\\DescuentosDamsco\\DescuentosDamsco\\DescuentoDamasco\\DescuentoDamasco.csproj",
-        "packagesPath": "C:\\Users\\Eduardo Mahmud\\.nuget\\packages\\",
-        "outputPath": "C:\\DescuentosDamsco\\DescuentosDamsco\\DescuentoDamasco\\obj\\",
+        "projectPath": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\DescuentoDamasco.csproj",
+        "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\david\\source\\repos\\DescuentoDamasco\\DescuentoDamasco\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Eduardo Mahmud\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,6 +35,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -49,9 +50,17 @@
               "target": "Package",
               "version": "[1.0.0, )"
             },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[7.0.12, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "QuestPDF": {
+              "target": "Package",
+              "version": "[2024.12.2, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
@@ -77,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

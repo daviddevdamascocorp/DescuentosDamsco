@@ -39,16 +39,19 @@
                     </select>
                     <span id="sucursal-error" class="error-message"></span>
                 </div>
-                <div class="col form-group">
-                    <label for="">Número de factura</label>
-                    <input type="text" id="num-fac" placeholder="Número de factura" class="form-control">
-                    <span id="num-fac-error" class="error-message"></span>
-                </div>
-                <div class="col form-group">
-                    <label for="">Fecha de Factura</label>
-                    <input type="date" name="fecha-factura" id="fecha-factura" class="form-control">
+                <div class="row g-2">
+                    <div class="col form-group">
+                        <label for="">Número de factura</label>
+                        <input type="text" id="num-fac" placeholder="Número de factura" class="form-control">
+                        <span id="num-fac-error" class="error-message"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Fecha de Factura</label>
+                        <input type="date" name="fecha-factura" id="fecha-factura" class="form-control">
 
+                    </div>
                 </div>
+              
                 <div class="row">
                     <div class="col form-group">
 
@@ -80,36 +83,10 @@
                         <input type="text" id="Apellido" placeholder="Apellido" class="form-control">
                         <span id="apellido-error" class="error-message"></span>
                     </div>
-                    <div class="col form-group">
-                        <label for="">Fecha de nacimiento</label>
-                        <input type="date" name="fecha-nac" id="fecha-nac" class="form-control">
-                        <span id="fecha-nac-error" class="error-message"></span>
-                    </div>
+                
 
                 </div>
-                <div class="row g-2">
-                    <div class="col">
-                        <label for="est-cil">
-                            Estado Civil
-                        </label>
-                        <select name="estado" class="form-select" id="estado-civil">
-                            <option value="">Elige</option>
-                            <option value="S">Soltero</option>
-                            <option value="C">Casado</option>
-                            <option value="D">Divorciado</option>
-                            <option value="V">Viudo</option>
-                        </select>
-                        <span id="estado-civil-error" class="error-message"></span>
-                    </div>
-                    <div class="col">
-                        <label for="genero-cliente">Sexo</label>
-                        <select name="genero" class="form-select" id="genero-cliente">
-                            <option value="M">Masculino</option>
-                            <option value="F">Femenino</option>
-                        </select>
-                        <span id="genero-cliente-error" class="error-message"></span>
-                    </div>
-                </div>
+                
                 <div class="form-group">
                     <label for="">Correo electronico</label>
                     <input type="text" id="Correo" name="Correo" placeholder="Correo electrónico" class="form-control">
@@ -165,13 +142,44 @@
                         <span id="ciudad-error" class="error-message"></span>
                     </div>
                     <div class="col form-group">
-                        <label for="">Zona</label>
+                        <label for="">Parroquia</label>
                         <select name="" class="form-select zona-emision" id="Zona-emision">
                         </select>
                         <span id="zona-error" class="error-message"></span>
                     </div>
                 </div>
-
+                <div class="row g-5">
+                   <div class="col form-group">
+                     <label for="">Urbanización</label>
+                    <input type="text" id="Urb" name="Urb" placeholder="Urbanización" class="form-control">
+                    <span id="urb-error" class="error-message"></span>
+                   </div>
+                   <div class="col form-group">
+                     <label for="">Calle o avenida</label>
+                    <input type="text" id="calle" name="calle" placeholder="Calle/Avenida" class="form-control">
+                    <span id="calle-error" class="error-message"></span>
+                   </div>
+                   <div class="col form-group">
+                     <label for="">Casa/Edificio</label>
+                    <input type="text" id="vivienda" name="vivienda" placeholder="Casa/Edificio" class="form-control">
+                    <span id="casa-error" class="error-message"></span>
+                   </div>
+                   <div class="col form-group">
+                     <label for="">Piso</label>
+                    <input type="text" id="piso" name="piso" placeholder="Piso" class="form-control">
+                   
+                   </div>
+                   <div class="col form-group">
+                     <label for="">Nro. Apto</label>
+                    <input type="text" id="apto" name="apto" placeholder="Apartamento" class="form-control">
+                  
+                   </div>
+                </div>
+           <div class="form-group">
+                    <label for="">Observaciones</label>
+                    <input type="text" id="observaciones" name="observaciones" placeholder="Observaciones" class="form-control">
+                    <span id="observaciones-error" class="error-message"></span>
+                </div>
 
             @*     <div class="form-group">
                     <label for="total-factura">Total de Factura</label>
@@ -362,13 +370,18 @@
                     let numCel = document.getElementById('num-telf').value;
                     let fechaFactura = document.getElementById('fecha-factura').value;
                     let emailInfo = document.getElementById('Correo').value;
-                    let country = $('#country').val().trim();
-                    let state = $('#estado-emision').val().trim();
-                    let municip = $('#municipio-emision').val().trim();
-                    let ciudad = $('#ciudad-emision').val().trim();
-                    let zona = $('#Zona-emision').val().trim();
+                    let state = $('#estado-emision').find("option:selected").text().trim();
+                    let municip = $('#municipio-emision').find("option:selected").text().trim();
+                    let ciudad = $('#ciudad-emision').find("option:selected").text().trim();
+                    let zona = $('#Zona-emision').find("option:selected").text().trim();
+                    let urbanizacion = document.getElementById('Urb').value;
+                    let calle = document.getElementById('calle').value;
+                    let vivienda =document.getElementById('vivienda').value;
+                    let piso =document.getElementById('piso').value;
+                    let apto =document.getElementById('apto').value;
+                    let observaciones=document.getElementById('observaciones').value;
                     let articulos = []; // Array para almacenar los artículos
-
+                   // console.log($('#Zona-emision').find("option:selected").text())
                     facturaData.forEach(item => {
                         articulos.push({
                             codarticulo: item.codArticulo,
@@ -376,26 +389,22 @@
                         });
                     });
 
-                    let dataDireccion = {
-                        codeContry: country,
-                        codeProvince: state,
-                        codeCity: ciudad,
-                        codeMunicipality: municip,
-                        codeZone: zona
-                    };
-
+                    let dataDireccionGeneral = state + "  " + municip + " " + ciudad + " " + zona 
+                    let dataDireccionTotal = dataDireccionGeneral + " urb: " + urbanizacion + ",calle: " + calle +",casa/Edificio:"+ vivienda + ",piso: " + piso + ",Apto: " + apto
                     let dataFactura = {
                         InvoiceNumber: numFac,
                         idSucursal: sucursalInfo,
                         InvoiceDate: fechaFactura,
                         Cedula: Cedula,
                         StoreCode: sucursalInfo,
+                        CorreoCliente:emailInfo,
                         NameClient: nombre,
                         SurnameClient: apellido,
-                        EmailClient: emailInfo,
+                        
                         PhoneNumberClient: tipoNumCel + numCel,
-                        AddressClient: dataDireccion,
-                        Articles: articulos
+                        AddressClient: dataDireccionTotal,
+                        Articles: articulos,
+                        Observation : observaciones
                     };
 
                     console.log(dataFactura);
@@ -423,13 +432,14 @@
                     });
                     if (response.ok) {
                         let data = await response.json();
+                       
                         console.log(data);
                         Swal.fire({
                             icon: 'success',
                             title: 'Éxito',
                             text: data.message
                         }).then(() => {
-                            location.reload();
+                            window.location.href = '@Url.Action("GenerarComprobante", "Coupon")';
                         });
                     } else {
                         let errorData = await response.json();
@@ -457,15 +467,15 @@
                 let apellido = document.getElementById('Apellido').value;
                 let tipoNumCel = document.getElementById('cod-telf').value;
                 let numCel = document.getElementById('num-telf').value;
-                let fechaNac = document.getElementById('fecha-nac').value;
-                let estadoCivil = document.getElementById('estado-civil').value;
-                let generoCliente = document.getElementById('genero-cliente').value;
+                
+               
+              
                 let emailInfo = document.getElementById('Correo').value;
                 let country = $('#country').val();
                 let state = $('#estado-emision').val();
                 let municip = $('#municipio-emision').val();
                 let ciudad = $('#ciudad-emision').val();
-                let zona = $('#Zona-emision').val();
+                let zona = $('#Zona-emision');
 
                 const errores = {
                     sucursal: document.getElementById("sucursal-error"),
@@ -476,9 +486,8 @@
                     apellido: document.getElementById("apellido-error"),
                     tipoNumTelf: document.getElementById('cod-telf-error'),
                     numTelf: document.getElementById('num-telf-error'),
-                    fechaNac: document.getElementById('fecha-nac-error'),
-                    estadoCivil: document.getElementById('estado-civil-error'),
-                    generoCliente: document.getElementById('genero-cliente-error'),
+                  
+                  
                     correo: document.getElementById('correo-error'),
                     pais: document.getElementById('country-error'),
                     estado: document.getElementById('estado-error'),
@@ -526,18 +535,8 @@
                     errores.numTelf.textContent = "Número teléfono";
                     isValid = false;
                 }
-                if (fechaNac === '') {
-                    errores.fechaNac.textContent = 'Nacimiento';
-                    isValid = false;
-                }
-                if (estadoCivil === '') {
-                    errores.estadoCivil.textContent = 'Elige estado';
-                    isValid = false;
-                }
-                if (generoCliente === '') {
-                    errores.generoCliente.textContent = 'Elige';
-                    isValid = false;
-                }
+               
+           
                 if (emailInfo === '') {
                     errores.correo.textContent = "Ingresa el correo";
                     isValid = false;
